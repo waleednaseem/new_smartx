@@ -80,19 +80,19 @@ export default function profile() {
       <div className="flex flex-row p-2 w-[100%] h-screen  overflow-hidden">
       
         <div className="grid grid-cols-4 gap-1 w-[100%] ">
-          <div className=" flex flex-col rounded-2xl shadow-2xl col-span-1 bg-slate-100 h-fit py-2 ">
+          <div className=" flex flex-col rounded-2xl shadow-2xl col-span-1 bg-primary h-fit py-2 ">
             <div className=" flex items-center justify-center mt-8 ">
               <img
                 src="images/smart(1).png"
-                className="rounded-full w-10"
+                className="rounded-full w-10 cursor-pointer"
                 alt="Avatar"
               />
             </div>
-            <div className=" items-center uppercase justify-center mt-4 hidden md:flex">
+            <div className=" items-center text-texting uppercase cursor-pointer justify-center mt-4 hidden md:flex">
               <div>{name&&name}</div>
             </div>
 
-            <div className=" my-2 mx-2 border-b border-primary"></div>
+            <div className=" my-2 mx-2 border-b border-white"></div>
             <Modal
               isOpen={isModalOpen}
               ariaHideApp={false}
@@ -130,12 +130,12 @@ export default function profile() {
                 }}
                 className="mx-0 sm:mx-16 mt-4 sm:mt-0 cursor-pointer flex justify-center items-center flex-col"
               >
-                <TbWallet className="text-primary mx-9 sm:mx-0 " size={25} />
-                <div className="text-sm mx-3 sm:-mx-4">Withdrawal</div>
+                <TbWallet className="text-texting mx-9 sm:mx-0 " size={25} />
+                <div className="text-sm text-texting mx-3 sm:-mx-4">Withdrawal</div>
               </div>
             </div>
 
-            <div className=" my-4 mx-2 border-b border-primary"></div>
+            <div className=" my-4 mx-2 border-b border-white"></div>
 
             <div>
               <div
@@ -144,12 +144,12 @@ export default function profile() {
               >
                 <div className="flex flex-col justify-center items-center">
                   <FiEdit
-                    className="text-primary cursor-pointer"
+                    className="text-texting cursor-pointer"
                     size={24}
                   />
-                  <div className="flex flex-col sm:flex-row justify-center items-center">
+                  <div className="flex flex-col gap-0 sm:gap-1 text-texting sm:flex-row justify-center items-center">
                     <div className="text-sm cursor-pointer">
-                      Edit
+                      My
                     </div>
                     <div className="text-sm cursor-pointer">
                       Profile
@@ -164,10 +164,10 @@ export default function profile() {
               >
                 <div className="flex flex-col justify-center items-center">
                   <RiLockPasswordFill
-                    className="text-primary cursor-pointer"
+                    className="text-texting cursor-pointer"
                     size={25}
                   />
-                  <div className="flex flex-col sm:flex-row justify-center items-center">
+                  <div className="flex flex-col gap-0 sm:gap-1 text-texting sm:flex-row justify-center items-center">
                     <div className="text-sm cursor-pointer">
                       Reset
                     </div>

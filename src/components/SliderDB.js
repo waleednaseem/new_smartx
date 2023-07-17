@@ -40,7 +40,7 @@ export default function SliderDB() {
               className="bg-[length:100%_175px] sm:bg-[length:100%_100%]"
               style={{ backgroundImage: `url(${slideImage.url})` }}
             >
-              <div className="h-[125px] sm:h-[350px]"></div>
+              <div className="h-[145px] sm:h-[350px]"></div>
             </div>
           </div>
         ))}

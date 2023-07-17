@@ -18,18 +18,18 @@ export default function MainDashboard({ name, Token }) {
     <div className=" overflow-x-scroll">
       <div className="sm:mb-10 mb-52">
         <TopHeaderDB />
-        <div className=" sm:px-4  mb-2 sm:mb-5 -mt-3 rounded-2xl shadow-2xl">
+        <div className=" sm:px-4 sm:mb-0.5 -mt-3 rounded-2xl shadow-2xl">
           <SliderDB />
         </div>
         <div className="sm:mx-4 sm:rounded-md">
           <NewsTicker />
         </div>
-        <div className="flex md:flex-row flex-col justify-between sm:mx-4 mt-2 sm:mt-0">
+        <div className="flex md:flex-row flex-col justify-between sm:mx-4 my-1">
           <Wallet />
 
 
         </div>
-        <div className="w-[100%]">
+        <div className="w-[100%] -mt-2">
           <Plans />
           {/* <PlanTest /> */}
         </div>

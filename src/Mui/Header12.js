@@ -118,6 +118,9 @@ function Header12({toast}) {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Login"
+        className={
+          " sm:mx-[20%] mx-2 sm:my-[10%] my-5 sm:h-[70%] h-[85%] rounded-3xl bg-purple-50 py-10 shadow-2xl"
+        }
       >
        
         {state == 1 ? <Loginpage setState={setState} toast={toast}  /> : <SignupPage setState={setState} toast={toast} />}

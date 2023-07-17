@@ -170,8 +170,8 @@ export default function SignupPage({ setState,toast }) {
                         <Button
                             type="submit"
                             fullWidth
-                            variant="outlined"
                             sx={{ mt: 3, mb: 2, backgroundColor: 'red' }}
+                            className="bg-primary text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
                         >
                             Sign Up
                         </Button>

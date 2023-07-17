@@ -15,7 +15,7 @@ export default function ProductHero() {
     <Slider3/> */}
     <div className="w-[100%]  p-2  flex sm:flex-row flex-col items-center">
       <div className="sm:w-[30%] w-[100%] bg-primary rounded-lg justify-center items-center flex">
-      <img className=" w-auto" src="images/screen.jpg" alt="/" />
+      <img className=" w-auto" src="images/screen1.jpeg" alt="/" />
       </div>
       <div className="sm:w-[70%] flex text-justify items-center sm:p-5 text-primary">A blockchain is a digital ledger of transactions that is duplicated and distributed across the entire network of computer systems on the blockchain. Each block in the chain contains a number of transactions and a reference to the block that came before it. This creates a permanent and unchangeable record of every transaction that has ever occurred on the blockchain.
 

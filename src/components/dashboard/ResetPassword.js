@@ -21,24 +21,24 @@ export default function ResetPassword() {
     }
   }
   return (
-    <div className="flex justify-center m-5">
+    <div className="my-2">
       <form onSubmit={submit} className="flex flex-col gap-2">
         <input
           type={"text"}
           placeholder={"Current Password"}
-          className="shadow-secondary shadow-md rounded-lg p-2 w-80"
+          className="shadow-secondary shadow-md rounded-lg p-2"
           onChange={e=>setPassword(e.target.value)}
         />
         <input
           type={"text"}
           placeholder={"New Password"}
-          className="shadow-secondary shadow-md rounded-lg p-2 w-80"
+          className="shadow-secondary shadow-md rounded-lg p-2"
           onChange={e=>setnew_password(e.target.value)}
         />
         <input
           type={"text"}
           placeholder={"New Password"}
-          className="shadow-secondary shadow-md rounded-lg p-2 w-80"
+          className="shadow-secondary shadow-md rounded-lg p-2"
           onChange={e=>setconfirm_new_password(e.target.value)}
         />
         {/* <input type={"text"} placeholder={"not"} className="invisible" /> */}
@@ -46,7 +46,7 @@ export default function ResetPassword() {
         {Loading?"Loading...":<input
           type={"submit"}
           placeholder={"Submit"}
-          className=" w-80 shadow-secondary shadow-md rounded-lg p-2 bg-primary text-texting font-bold "
+          className="shadow-secondary shadow-md rounded-lg p-2 bg-primary text-texting font-bold "
         />}
       </form>
     </div>
