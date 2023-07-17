@@ -127,7 +127,6 @@ export default function Loginpage({ setState, toast }) {
               label="Username"
               name="Username"
               autoComplete="Username"
-              autoFocus
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
@@ -148,8 +147,8 @@ export default function Loginpage({ setState, toast }) {
             <Button
               type="submit"
               fullWidth
-              variant="outlined"
               sx={{ mt: 3, mb: 2 }}
+              className="bg-primary text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
             >
               Sign In
             </Button>
