@@ -46,7 +46,7 @@ export default function Edit() {
       .catch((x) => console.log(x));
   };
   return (
-    <div className="sm:mx-[30%] mx-">
+    <div className="sm:mx-[30%]">
       <ToastContainer
         position="bottom-left"
         autoClose={2000}
@@ -71,12 +71,36 @@ export default function Edit() {
               placeholder={"Full Name"}
               className="shadow-secondary shadow-md rounded-lg p-2 text-primary "
             />
-            <input
-              type={"text"}
-              onChange={(e) => setemail(e.target.value)}
-              placeholder={"Email"}
-              className="shadow-secondary shadow-md rounded-lg p-2 text-primary "
-            />
+            <div className="flex">
+              <input
+                type={"text"}
+                onChange={(e) => setemail(e.target.value)}
+                placeholder={"Email"}
+                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
+              />
+              {verify == "Verify" ? <button className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[31.5%] -ml-[30%] my-0.5 text-xs sm:text-base">
+                Resend OTP
+              </button>: 
+              <button onClick={()=>{setVerify("Verify")}} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[23%] -ml-[22.5%] my-0.5 text-xs sm:text-base">
+                Get OTP
+              </button>
+              }
+            </div>
+
+{verify == "Verify" && <div className="flex">
+              <input
+                type={"text"}
+                placeholder="Verify OTP"
+                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
+              />
+
+              <button onClick={() => {
+                setSubmit("Submit");
+              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 -ml-[17%] my-0.5 text-xs sm:text-base">
+                Verify
+              </button>
+            </div>}
+
             <div className="flex w-[100%] gap-0.5">
               <select
                 onChange={(e) => setphone(e.target.value)}
@@ -354,19 +378,7 @@ export default function Edit() {
               </button>
             </div>
 
-            {verify == "Verify" && <div className="flex">
-              <input
-                type={"text"}
-                placeholder="Verify OTP"
-                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
-              />
-
-              <button onClick={() => {
-                setSubmit("Submit");
-              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 -ml-16 my-0.5">
-                Verify
-              </button>
-            </div>}
+            
 
             <div className="flex justify-center gap-0.5 w-[100%]">
               <button
@@ -378,21 +390,17 @@ export default function Edit() {
                 Back
               </button>
 
-              {submit == "Edit" && <button onClick={() => { setVerify("Verify");
-              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]">
-                Request OTP
-              </button>}
+              
+                <button onClick={() => { setState("Back")
 
-              {submit == "Submit" && <button onClick={() => { setVerify("Verify");
-              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]">
-               Submit
-              </button>}
-
+                }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]"
+                >
+                  Sumbit
+                </button>
             </div>
           </form>
         </div>
       )}
-
 
       {state == "Back" && (
         <div className="bg-white rounded-lg px-2">

@@ -21,7 +21,7 @@ export default function ResetPassword() {
     }
   }
   return (
-    <div className="my-2">
+    <div className="my-2 sm:mx-[30%]">
       <form onSubmit={submit} className="flex flex-col gap-2">
         <input
           type={"text"}
