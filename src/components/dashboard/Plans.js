@@ -59,7 +59,7 @@ export default function Plans() {
         isOpen={isModalOpen}
         ariaHideApp={false}
         onRequestClose={closeModal}
-        className={" w-[80%] h-[300px] fixed top-[10%] left-[10%] rounded-2xl "}
+        className={" sm:w-[50%] w-[80%] h-[300px] fixed top-[5%] left-[10%] sm:left-[25%] rounded-2xl "}
       >
         <Upgrades
           onValue={onValue}

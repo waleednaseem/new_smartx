@@ -76,7 +76,7 @@ export default function SidebarMobile({name}) {
                 <FaUserAlt size={30} />
               </Link>
             </div>
-
+{/* 
             <div>
               <div
                 className={`
@@ -92,7 +92,9 @@ export default function SidebarMobile({name}) {
                   <SlLogout size={30} />
                 </div>
               </div>
-            </div>
+            </div> */}
+
+
           </div>
         </div>
       </div>

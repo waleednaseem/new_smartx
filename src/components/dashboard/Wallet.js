@@ -29,31 +29,34 @@ export default function Wallet() {
     <div className="flex flex-col justify-between min-w-[350px] w-[100%] min-h-[140px] rounded-2xl bg-primary">
       <div className="flex flex-col">
         <div className="flex justify-center ">
-          <p className="MyFont text-3xl text-texting hover:text-white hover:cursor-pointer">
+          <p className="MyFont sm:text-3xl text-xl text-texting hover:text-white hover:cursor-pointer">
             Smart-X-BlockChain
           </p>
         </div>
         <div className="flex w-[100%]">
           <div className="w-[50%] flex flex-col">
-          <div className="flex justify-center text-2xl text-texting hover:text-white hover:cursor-pointer -ml-10 sm:-ml-0 my-2">Wallet</div>
-            <div className="mx-2 text-texting items-center flex">
-              <p className="min-w-[45px] cursor-pointer hover:text-white">BNB</p>
+          <div className="flex justify-center sm:text-2xl text-md text-texting hover:text-white hover:cursor-pointer -ml-10 sm:-ml-0 my-2">Wallet</div>
+            <div className="mx-2 text-texting items-center flex sm:justify-center my-2">
+              <p className="min-w-[45px] sm:text-base text-xs cursor-pointer hover:text-white">BNB</p>
               <img className="h-5 w-5 mx-0.5 cursor-pointer" src="images/BNB.png" alt="" />
-              <div className="text-texting sm:font-base font-bold italic mx-2 cursor-pointer hover:text-white">200.05</div>
+              <div className="text-texting sm:text-base text-xs font-bold italic mx-2 cursor-pointer hover:text-white">200.05</div>
             </div>
-            <div className="mx-2 text-texting flex items-center">
-              <p className="min-w-[45px] cursor-pointer hover:text-white">USDT</p>
+            <div className="mx-2 text-texting flex sm:justify-center items-center">
+              <p className="min-w-[45px] cursor-pointer sm:text-base text-xs hover:text-white">USDT</p>
               <img className="h-6 w-6 cursor-pointer" src="images/USDT.png" alt="" />
-              <div className="text-texting sm:font-base font-bold italic mx-2 cursor-pointer hover:text-white">200.05</div>
+              <div className="text-texting sm:text-base text-xs font-bold italic mx-2 cursor-pointer hover:text-white">200.05</div>
             </div>
           </div>
+
+
+
           <div className="w-[50%] flex flex-col">
-          <div className="flex justify-center text-2xl text-texting hover:text-white hover:cursor-pointer ml-[38%] my-2 mt-2">Team</div>
+          <div className="flex justify-center sm:text-2xl text-md text-texting hover:text-white hover:cursor-pointer ml-[38%] sm:ml-0 my-2 ">Team</div>
           
-            <div className="flex">
-            <GiTeamUpgrade className="text-texting ml-[38%] sm:ml-[60%]" size={30}/>
-            <BsArrowRightShort className="text-texting mt-" size={30}/>
-            <p className="text-texting text-lg font-bold italic mx-2 cursor-pointer mt-1 hover:text-white">
+            <div className="flex justify-center items-center my-3 ml-5">
+            <GiTeamUpgrade className="text-texting ml-[38%] sm:ml-0" size={25}/>
+            <BsArrowRightShort className="text-texting " size={25}/>
+            <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
               850
             </p>
             </div>

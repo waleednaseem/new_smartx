@@ -4,29 +4,29 @@ import "react-slideshow-image/dist/styles.css";
 
 const slideImages = [
   {
-    url: "images/p1.png",
+    url: "images/1.jpg",
     caption: "Slide 1",
   },
   {
-    url: "images/p2.png",
+    url: "images/2.jpg",
     caption: "Slide 2",
   },
   {
-    url: "images/p3.png",
+    url: "images/3.jpg",
     caption: "Slide 3",
   },
-  {
-    url: "images/p4.png",
-    caption: "Slide 4",
-  },
-  {
-    url: "images/p5.png",
-    caption: "Slide 5",
-  },
-  {
-    url: "images/smart.png",
-    caption: "Slide 6",
-  },
+  // {
+  //   url: "images/p4.png",
+  //   caption: "Slide 4",
+  // },
+  // {
+  //   url: "images/p5.png",
+  //   caption: "Slide 5",
+  // },
+  // {
+  //   url: "images/smart.png",
+  //   caption: "Slide 6",
+  // },
 ];
 
 export default function SliderDB() {
@@ -37,7 +37,7 @@ export default function SliderDB() {
         {slideImages.map((slideImage, index) => (
           <div className="each-slide sm:hello lg:hellow" key={index}>
             <div
-              className="bg-[length:100%_175px] sm:bg-[length:100%_100%]"
+              className="bg-[length:100%_145px] sm:bg-[length:100%_100%]"
               style={{ backgroundImage: `url(${slideImage.url})` }}
             >
               <div className="h-[145px] sm:h-[350px]"></div>

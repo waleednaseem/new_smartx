@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { TbWallet } from "react-icons/tb";
 import { GiThreeFriends, GiCardboardBox } from "react-icons/gi";
+import { MdEmojiPeople } from "react-icons/md";
+import { SlLogout } from "react-icons/sl";
 import { RiLockPasswordFill } from "react-icons/ri";
 import WalletSecure from "../src/components/dashboard/WalletSecure";
 import Sidebar from "../src/components/dashboard/Sidebar";
@@ -81,14 +83,14 @@ export default function profile() {
       
         <div className="grid grid-cols-4 gap-1 w-[100%] ">
           <div className=" flex flex-col rounded-2xl shadow-2xl col-span-1 bg-primary h-fit py-2 ">
-            <div className=" flex items-center justify-center mt-8 ">
+            <div className=" flex items-center justify-center mt-2 ">
               <img
                 src="images/smart(1).png"
                 className="rounded-full w-10 cursor-pointer"
                 alt="Avatar"
               />
             </div>
-            <div className=" items-center text-texting uppercase cursor-pointer justify-center mt-4 hidden md:flex">
+            <div className="flex items-center text-texting uppercase cursor-pointer justify-center mx-2 mt-2 text-sm">
               <div>{name&&name}</div>
             </div>
 
@@ -157,6 +159,7 @@ export default function profile() {
                   </div>
                 </div>
               </div>
+              <div className=" my-4 mx-2 border-b border-white"></div>
 
               <div
                 onClick={() => setState(1)}
@@ -177,6 +180,46 @@ export default function profile() {
                   </div>
                 </div>
               </div>
+              <div className=" my-4 mx-2 border-b border-white"></div>
+
+              
+              <div 
+              onClick={() => setState(4)}
+              className="flex flex-col lg:flex-row justify-center items-center">
+                <div className="flex flex-col justify-center items-center">
+                  <MdEmojiPeople
+                    className="text-texting cursor-pointer"
+                    size={25}/>
+                  <div className="flex flex-col gap-0 sm:gap-1 text-texting sm:flex-row justify-center items-center">
+                    <div className="text-sm cursor-pointer">
+                      Refferal
+                    </div>
+                    <div className="text-sm cursor-pointer">
+                      Link
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" my-4 mx-2 border-b border-white"></div>
+
+              <div onClick={() => {
+                    localStorage.removeItem("user"), window.location.assign("/");
+                  }} 
+              className="flex flex-col lg:flex-row justify-center items-center">
+                <div className="flex flex-col justify-center items-center">
+                <SlLogout 
+                    className="text-texting cursor-pointer"
+                    size={25}/>
+                  <div className="text-texting justify-center items-center">
+Logout
+                  </div>
+                </div>
+              </div>
+
+             
+
+
             </div>
           </div>
 
@@ -186,9 +229,17 @@ export default function profile() {
 
             <UserTime />
             {(state == 0 && <Edit />) ||
-              (state == 1 && <ResetPassword />) ||
+              (state == 1 && <ResetPassword />)
+              ||
               // (state == 2 && <PlacementTreeNew state={state} />) ||
-              (state == 3 && <Pakages />)}
+              // (state == 3 && <Pakages />)
+              state == 4 && (<div className="sm:mx-[30%] bg-red-500">
+                <div>
+                  Abrar
+                  
+                </div>
+              </div>)
+              }
           </div>
         </div>
       </div>

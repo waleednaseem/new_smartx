@@ -4,29 +4,29 @@ import "react-slideshow-image/dist/styles.css";
 
 const slideImages = [
   {
-    url: "images/p1.png",
+    url: "images/1.jpg",
     caption: "Slide 1",
   },
   {
-    url: "images/p2.png",
+    url: "images/2.jpg",
     caption: "Slide 2",
   },
   {
-    url: "images/p3.png",
+    url: "images/3.jpg",
     caption: "Slide 3",
   },
-  {
-    url: "images/p4.png",
-    caption: "Slide 4",
-  },
-  {
-    url: "images/p5.png",
-    caption: "Slide 5",
-  },
-  {
-    url: "images/smart.png",
-    caption: "Slide 6",
-  },
+  // {
+  //   url: "images/p4.png",
+  //   caption: "Slide 4",
+  // },
+  // {
+  //   url: "images/p5.png",
+  //   caption: "Slide 5",
+  // },
+  // {
+  //   url: "images/smart.png",
+  //   caption: "Slide 6",
+  // },
 ];
 
 const properties = {
