@@ -3,7 +3,7 @@ import Notification from "./Notification";
 import UserDB from "./UserDB";
 import Search from "./Search";
 import NotificationNew from "./NotificationNew";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { IoNotificationsSharp } from "react-icons/io5";
 
 export default function TopHeaderDB({ name }) {

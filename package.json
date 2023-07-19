@@ -39,7 +39,8 @@
     "thunk": "^0.0.1",
     "tw-elements": "^1.0.0-alpha13",
     "viem": "^0.3.41",
-    "wagmi": "^1.0.9"
+    "wagmi": "^1.0.9",
+    "wagmi-core": "^0.1.22"
   },
   "devDependencies": {
     "@types/node": "18.11.3",

@@ -8,18 +8,18 @@ import {
   RainbowKitProvider,
   lightTheme
 } from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/chains';
+import { configureChains, createConfig, mainnet, WagmiConfig } from 'wagmi';
+import { bsc,bscTestnet,sepolia } from 'wagmi/chains';
 // import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc'
 
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
   [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum
+    bsc,
+    bscTestnet,
+    sepolia,
+    mainnet
   ],
   [
     // jsonRpcProvider({
@@ -31,6 +31,15 @@ const { chains, publicClient } = configureChains(
   ]
 );
 // https://mainnet.infura.io/v3/0b3aa2b530f741ab8521a93cb5302f93
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+ 
+// const connector = new WalletConnectConnector({
+//   chains,
+//   options: {
+//     projectId: 'project id',
+//     showQrModal: true,
+//   },
+// })
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
@@ -58,7 +67,7 @@ function MyApp({ Component, pageProps }) {
         accentColor: 'primary',
         accentColorForeground: 'white',
         borderRadius: 'medium',
-        fontStack: 'system',
+        // fontStack: 'system',
       })} chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>

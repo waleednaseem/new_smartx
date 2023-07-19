@@ -15,6 +15,7 @@ export default function Edit() {
 
   const [state, setState] = useState("Back");
   const [verify, setVerify] = useState("");
+  const [code, setOPT] = useState("");
   const [submit, setSubmit] = useState("");
 
   const [password, setPassword] = useState("");
@@ -30,7 +31,7 @@ export default function Edit() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    API.fetchPost({ full_name, email, phone }, "/update_profile")
+    API.fetchPost({ full_name, phone }, "/update_profile")
       .then((x) =>
         toast.success(x.data.msg, {
           position: "top-center",
@@ -45,6 +46,70 @@ export default function Edit() {
       )
       .catch((x) => console.log(x));
   };
+
+  const SendOPT = (e) => {
+    e.preventDefault()
+    API.fetchPost({ email }, '/verify-email')
+      .then(x =>
+      // console.log(x)
+      (
+        x.data.message == "Verification email sent" ? (toast.success(x.data.message, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }),
+          setVerify("Verify")) :
+          toast.error(x.data.message, {
+            position: "top-center",
+            autoClose: 900,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+
+
+      )
+      )
+      .catch(err => console.log(err))
+
+  }
+  const VerifyOPT = (e) => {
+    e.preventDefault()
+    API.fetchPost({ email, code }, '/verify-code')
+      .then(x => x.data.msg =="Verified successfully !"?
+      toast.success(x.data.msg, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },setVerify("")):
+      
+      toast.error(x.data.msg, {
+        position: "top-center",
+        autoClose: 900,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      )
+      .catch(err => console.log(err))
+    // setSubmit("Submit");
+  }
   return (
     <div className="sm:mx-[30%]">
       <ToastContainer
@@ -80,23 +145,22 @@ export default function Edit() {
               />
               {verify == "Verify" ? <button className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[31.5%] -ml-[30%] my-0.5 text-xs sm:text-base">
                 Resend OTP
-              </button>: 
-              <button onClick={()=>{setVerify("Verify")}} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[23%] -ml-[22.5%] my-0.5 text-xs sm:text-base">
-                Get OTP
-              </button>
+              </button> :
+                <button onClick={SendOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[23%] -ml-[22.5%] my-0.5 text-xs sm:text-base">
+                  Get OTP
+                </button>
               }
             </div>
 
-{verify == "Verify" && <div className="flex">
+            {verify == "Verify" && <div className="flex">
               <input
                 type={"text"}
                 placeholder="Verify OTP"
+                onChange={(e) => setOPT(e.target.value)}
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
               />
 
-              <button onClick={() => {
-                setSubmit("Submit");
-              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 -ml-[17%] my-0.5 text-xs sm:text-base">
+              <button onClick={VerifyOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 -ml-[17%] my-0.5 text-xs sm:text-base">
                 Verify
               </button>
             </div>}
@@ -378,7 +442,7 @@ export default function Edit() {
               </button>
             </div>
 
-            
+
 
             <div className="flex justify-center gap-0.5 w-[100%]">
               <button
@@ -390,13 +454,14 @@ export default function Edit() {
                 Back
               </button>
 
-              
-                <button onClick={() => { setState("Back")
 
-                }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]"
-                >
-                  Sumbit
-                </button>
+              <button onClick={() => {
+                setState("Back")
+
+              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]"
+              >
+                Sumbit
+              </button>
             </div>
           </form>
         </div>
