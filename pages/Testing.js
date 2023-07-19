@@ -150,7 +150,7 @@ import { getContract, waitForTransaction, fetchBalance,fetchToken } from "wagmi/
 //   },
 // ];
 export default  function Testing() {
-  // const ContractAddress = "0x569B2514b94bc003F0394da5125f47274de0a812";
+  const ContractAddress = "0x55d398326f99059fF775485246999027B3197955";
   const { data: walletClient } = useWalletClient();
   const { address, isConnected } = useAccount();
   const [balance,setBalance]=useState('null')
@@ -171,16 +171,16 @@ export default  function Testing() {
   }
   
   console.log(balance, '<=====')
-  const contract = React.useMemo(
-    () =>
-      getContract({
-        address: ContractAddress,
-        abi: myAbi,
-        walletClient,
-      }),
+  // const contract = React.useMemo(
+  //   () =>
+  //     getContract({
+  //       address: ContractAddress,
+  //       abi: myAbi,
+  //       walletClient,
+  //     }),
 
-    [walletClient]
-  );
+  //   [walletClient]
+  // );
  
   const deposite = async () => {
     const transactionHash = await contract.write.transferFromUserToOwner(['0x53A3CCDDa2a98596167b5Bf9703A55e4f5116E16', 100]);
