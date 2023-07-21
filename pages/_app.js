@@ -1,79 +1,166 @@
-import react, { useEffect } from 'react'
-import '../styles/globals.css'
-import store from '../redux/Store'
-import { Provider } from 'react-redux'
+// import react, { useEffect } from 'react'
+// import '../styles/globals.css'
+// import store from '../redux/Store'
+// import { Provider } from 'react-redux'
+// import '@rainbow-me/rainbowkit/styles.css';
+// import {
+//   getDefaultWallets,
+//   RainbowKitProvider,
+//   lightTheme,
+//   connectorsForWallets
+// } from '@rainbow-me/rainbowkit';
+// import { configureChains, createConfig, mainnet, WagmiConfig } from 'wagmi';
+// import { bsc,bscTestnet,sepolia } from 'wagmi/chains';
+// import { publicProvider } from 'wagmi/providers/public';
+// import {
+//   argentWallet,
+//   trustWallet,
+//   ledgerWallet,
+// } from '@rainbow-me/rainbowkit/wallets';
+
+// const { chains, publicClient,webSocketPublicClient } = configureChains(
+//   [
+//     bsc,
+//     bscTestnet,
+//     sepolia,
+//     mainnet
+//   ],
+//   [
+//     publicProvider()
+//   ]
+// );
+
+// const projectId = '324304fba50b4e52dd420b48d2404f07';
+
+// const { wallets } = getDefaultWallets({
+//   appName: 'My RainbowKit App',
+//   projectId,
+//   chains,
+// });
+
+// const connectors = connectorsForWallets([
+//   wallets,
+//   {
+//     groupName: 'Other',
+//     wallets: [
+//       argentWallet({ projectId, chains }),
+//       trustWallet({ projectId, chains }),
+//       ledgerWallet({ projectId, chains }),
+//     ],
+//   },
+// ]);
+
+// const wagmiConfig = createConfig({
+//   autoConnect: true,
+//   connectors,
+//   publicClient,
+//   webSocketPublicClient,
+// });
+
+// function MyApp({ Component, pageProps }) {
+//   useEffect(() => {
+//     const use = async () => {
+//       (await import('tw-elements')).default;
+//     };
+//     use();
+//   }, []);
+
+//   if (!connectors) {
+//     // The connectors object is not defined, so we cannot use it.
+//     return null;
+//   }
+
+//   return (
+//     <Provider store={store}>
+//       <WagmiConfig config={wagmiConfig}>
+//         <RainbowKitProvider theme={lightTheme({
+//           accentColor: 'primary',
+//           accentColorForeground: 'white',
+//           borderRadius: 'medium',
+//           // fontStack: 'system',
+//         })} chains={chains}>
+//           <Component {...pageProps} />
+//         </RainbowKitProvider>
+//       </WagmiConfig>
+//     </Provider>
+//   );
+// }
+
+// export default MyApp;
+
+import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
-  getDefaultWallets,
   RainbowKitProvider,
-  lightTheme
+  getDefaultWallets,
+  connectorsForWallets,
 } from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, mainnet, WagmiConfig } from 'wagmi';
-import { bsc,bscTestnet,sepolia } from 'wagmi/chains';
-// import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc'
-
+import {
+  argentWallet,
+  trustWallet,
+  ledgerWallet,
+  metaMaskWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import {
+  bsc
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import store from '../redux/Store'
+import { Provider } from 'react-redux'
 
-const { chains, publicClient } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
-    bsc,
-    bscTestnet,
-    sepolia,
-    mainnet
+    bsc
   ],
-  [
-    // jsonRpcProvider({
-    //   rpc: (chain) => ({
-    //     http: `https://cloudflare-eth.com`,
-    //   }),
-    // }),
-    publicProvider()
-  ]
+  [publicProvider()]
 );
-// https://mainnet.infura.io/v3/0b3aa2b530f741ab8521a93cb5302f93
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
- 
-// const connector = new WalletConnectConnector({
-//   chains,
-//   options: {
-//     projectId: 'project id',
-//     showQrModal: true,
-//   },
-// })
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+
+const projectId = '324304fba50b4e52dd420b48d2404f07';
+
+const { wallets } = getDefaultWallets({
+  appName: 'RainbowKit demo',
+  projectId,
   chains,
 });
+
+const demoAppInfo = {
+  appName: 'Rainbowkit Demo',
+};
+
+const connectors = connectorsForWallets([
+  ...wallets,
+  {
+    groupName: 'Other',
+    wallets: [
+      argentWallet({ projectId, chains }),
+      trustWallet({ projectId, chains }),
+      ledgerWallet({ projectId, chains }),
+      metaMaskWallet({ projectId, chains }),
+      walletConnectWallet({ projectId, chains }),
+    ],
+  },
+]);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient
-})
-
+  publicClient,
+  webSocketPublicClient,
+});
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    const use = async () => {
-      (await import('tw-elements')).default;
-    };
-    use();
-  }, []);
-
-  return <Provider store={store}>
+  return (
+    <Provider store={store}>
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider theme={lightTheme({
-        accentColor: 'primary',
-        accentColorForeground: 'white',
-        borderRadius: 'medium',
-        // fontStack: 'system',
-      })} chains={chains}>
+      <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
-  </Provider>
-
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
+
