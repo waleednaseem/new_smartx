@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite } from "wagmi";
-import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
 
 export default function Testing() {
-  const ContractAddress = "0x6175a8471C2122f778445e7E07A164250a19E661";
-  const { data: walletClient } = useWalletClient();
-  const [balance, setBalance] = useState('null')
-  const [Usdt, setUsdt] = useState('null')
-  const { address, isConnected } = useAccount();
 
   const tokens = async () => {
     const balances = await fetchBalance({
