@@ -5,18 +5,25 @@ import "react-toastify/dist/ReactToastify.css";
 import { CgProfile } from "react-icons/cg";
 import { MdEmail } from "react-icons/md";
 import { AiFillPhone, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FaHubspot } from "react-icons/fa";
+import { FaHubspot, FaRegAddressCard } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
 
 export default function Edit() {
-  const [full_name, setfullname] = useState("");
-  const [email, setemail] = useState("");
-  const [phone, setphone] = useState("");
+  
+  const [getfull_name, setgetfullname] = useState("");
+  const [getemail, setgetemail] = useState("");
+  const [getphone, setgetphone] = useState("");
+  const [getaddress, setgetAddr] = useState("");
+
+  const [full_name, setfullname] = useState(getfull_name);
+  const [email, setemail] = useState(getemail);
+  const [phone, setphone] = useState(getphone);
+  const [address, setAddr] = useState(getaddress);
 
   const [state, setState] = useState("Back");
-  const [verify, setVerify] = useState("");
+  const [verify, setVerify] = useState("ss");
   const [code, setOPT] = useState("");
-  const [submit, setSubmit] = useState("");
+  // const [submit, setSubmit] = useState("");
 
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,23 +36,7 @@ export default function Edit() {
     setShowPassword(!showPassword);
   };
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    API.fetchPost({ full_name, phone }, "/update_profile")
-      .then((x) =>
-        toast.success(x.data.msg, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      )
-      .catch((x) => console.log(x));
-  };
+
 
   const SendOPT = (e) => {
     e.preventDefault()
@@ -83,33 +74,44 @@ export default function Edit() {
   }
   const VerifyOPT = (e) => {
     e.preventDefault()
-    API.fetchPost({ email, code }, '/verify-code')
-      .then(x => x.data.msg =="Verified successfully !"?
-      toast.success(x.data.msg, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      },setVerify("")):
-      
-      toast.error(x.data.msg, {
-        position: "top-center",
-        autoClose: 900,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+    API.fetchPost({ code, email, full_name, phone, address }, '/verify-code')
+      .then(x => x.data.msg == "Verified successfully !" ?
+        toast.success(x.data.msg, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }, setVerify("")) :
+
+        toast.error(x.data.msg, {
+          position: "top-center",
+          autoClose: 900,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
       )
       .catch(err => console.log(err))
     // setSubmit("Submit");
   }
+  useEffect(() => {
+    API.fetchGet('/get_user_profile')
+      .then(x => (
+        console.log(x,'<<== get_user_profile'),
+        setgetfullname(x.data.full_name),
+        setgetAddr(x.data.address),
+        setgetemail(x.data.email),
+        setgetphone(x.data.phone)
+      ))
+      .catch(x => console.log(x))
+  }, [getfull_name,getaddress,getemail,getphone,verify])
   return (
     <div className="sm:mx-[30%]">
       <ToastContainer
@@ -127,43 +129,27 @@ export default function Edit() {
       {state == "Edit" && (
         <div>
           <form
-            onSubmit={submitForm}
+            // onSubmit={submitForm}
             className="grid md:grid-cols-1 gap-2 my-2"
           >
+            <input
+              type={"text"}
+              onChange={(e) => setemail(e.target.value)}
+              placeholder={"Email"}
+              className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
+            />
             <input
               type={"text"}
               onChange={(e) => setfullname(e.target.value)}
               placeholder={"Full Name"}
               className="shadow-secondary shadow-md rounded-lg p-2 text-primary "
             />
-            <div className="flex">
-              <input
-                type={"text"}
-                onChange={(e) => setemail(e.target.value)}
-                placeholder={"Email"}
-                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
-              />
-              {verify == "Verify" ? <button className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[31.5%] -ml-[30%] my-0.5 text-xs sm:text-base">
-                Resend OTP
-              </button> :
-                <button onClick={SendOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 sm:-ml-[23%] -ml-[22.5%] my-0.5 text-xs sm:text-base">
-                  Get OTP
-                </button>
-              }
-            </div>
-
-            {verify == "Verify" && <div className="flex">
-              <input
-                type={"text"}
-                placeholder="Verify OTP"
-                onChange={(e) => setOPT(e.target.value)}
-                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
-              />
-
-              <button onClick={VerifyOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg z-10 -ml-[17%] my-0.5 text-xs sm:text-base">
-                Verify
-              </button>
-            </div>}
+            <input
+              type={"text"}
+              onChange={(e) => setAddr(e.target.value)}
+              placeholder={"Address"}
+              className="shadow-secondary shadow-md rounded-lg p-2 text-primary "
+            />
 
             <div className="flex w-[100%] gap-0.5">
               <select
@@ -442,27 +428,40 @@ export default function Edit() {
               </button>
             </div>
 
+            {verify == "Verify" && <div className="flex">
+              <input
+                type={"text"}
+                placeholder="Verify OTP"
+                onChange={(e) => setOPT(e.target.value)}
+                className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[75%] z-0"
+              />
+              <button className="bg-primary text-texting py-1 px-3 ml-4 text-xs rounded-2xl" onClick={(e)=>SendOPT(e)}>Resent OPT</button>
+            </div>
 
-
-            <div className="flex justify-center gap-0.5 w-[100%]">
-              <button
+            }
+            {verify != "Verify" ? <div className="flex justify-center gap-0.5 w-[100%]">
+              {/* <button
                 onClick={() => {
                   setState("Back");
                 }}
                 className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[35%]"
               >
                 Back
-              </button>
+              </button> */}
 
 
-              <button onClick={() => {
-                setState("Back")
-
-              }} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[65%]"
+              <button onClick={SendOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[100%]"
               >
                 Sumbit
               </button>
-            </div>
+            </div> :
+              <div className="flex justify-center  w-[100%]">
+                <button onClick={(e) => (VerifyOPT(e), setState("Back"))} className="bg-primary w-[100%] text-texting font-bold py-2 rounded-lg z-10  my-0.5 text-xs sm:text-base">
+                  Verify
+                </button>
+              </div>
+            }
+
           </form>
         </div>
       )}
@@ -473,9 +472,13 @@ export default function Edit() {
             <div className="text-gray-500 text-xs sm:text-base">Name</div>
             <div className="flex gap-1 mx-2">
               <CgProfile className="text-primary" size={20} />
-              <div className="text-red-500 text-xs sm:text-base">
-                *Please update your profile to complete the verification process
-              </div>
+              {getfull_name == null ? <div className="text-red-500 text-xs sm:text-base">
+                *Required
+              </div> :
+                <div>
+                  {getfull_name}
+                </div>
+              }
             </div>
             <div className="border-b border-primary"></div>
           </div>
@@ -484,9 +487,12 @@ export default function Edit() {
             <div className="text-gray-500 text-xs sm:text-base">Email</div>
             <div className="flex gap-1 mx-2">
               <MdEmail className="text-primary" size={20} />
-              <div className="text-red-500 text-xs sm:text-base">
-                *Please update your profile to complete the verification process
-              </div>
+              {getemail == null ? <div className="text-red-500 text-xs sm:text-base">
+                *Required
+              </div> :
+                <div>
+                  {getemail}
+                </div>}
             </div>
             <div className="border-b border-primary"></div>
           </div>
@@ -495,9 +501,25 @@ export default function Edit() {
             <div className="text-gray-500 text-xs sm:text-base">Phone No.</div>
             <div className="flex gap-1 mx-2">
               <AiFillPhone className="text-primary" size={20} />
-              <div className="text-red-500 text-xs sm:text-base">
-                *Please update your profile to complete the verification process
-              </div>
+              {getphone == null ? <div className="text-red-500 text-xs sm:text-base">
+                *Required
+              </div> :
+                <div>
+                  {getphone}
+                </div>}
+            </div>
+            <div className="border-b border-primary"></div>
+          </div>
+          <div className="py-2">
+            <div className="text-gray-500 text-xs sm:text-base">Address</div>
+            <div className="flex gap-1 mx-2">
+              <FaRegAddressCard className="text-primary" size={20} />
+              {getaddress == null ? <div className="text-red-500 text-xs sm:text-base">
+                *Required
+              </div> :
+                <div>
+                  {getaddress}
+                </div>}
             </div>
             <div className="border-b border-primary"></div>
           </div>

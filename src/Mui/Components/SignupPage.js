@@ -20,13 +20,17 @@ import API from "../../API/API";
 
 // import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
 
-export default function SignupPage({ setState,toast }) {
+export default function SignupPage({ setState, toast }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [refferal, setRefferal] = useState("");
     const [phone, setPhone] = useState("");
+
+    const router = useRouter();
+    const { ref } = router.query;
+    const [refferal, setRefferal] = useState(ref);
 
     const notify = () => toast.success("Wow so easy!", {
         position: "top-right",
@@ -80,7 +84,7 @@ export default function SignupPage({ setState,toast }) {
             {
                 username: username,
                 password: password,
-                refferal: refferal
+                refferal: ref||refferal
             },
             "/register"
         ).then((x) => {
@@ -93,12 +97,12 @@ export default function SignupPage({ setState,toast }) {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            }),setTimeout(() => {
+            }), setTimeout(() => {
                 setState(4);
                 setTimeout(() => {
-                  setState(1);
+                    setState(1);
                 }, 1000);
-              }, 0)) : toast.error(x.data, {
+            }, 0)) : toast.error(x.data, {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -111,6 +115,7 @@ export default function SignupPage({ setState,toast }) {
 
         });
     };
+    console.log({ref,router},"<== check kro isay")
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -125,7 +130,7 @@ export default function SignupPage({ setState,toast }) {
                 >
                     <img className="bg-primary rounded-md" src="images/smart(1).png" height={100} width={100} />
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign up 
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -153,7 +158,7 @@ export default function SignupPage({ setState,toast }) {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            {ref ==null?<Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
@@ -164,7 +169,16 @@ export default function SignupPage({ setState,toast }) {
                                     autoComplete="new-Refferal"
                                     onChange={(e) => setRefferal(e.target.value)}
                                 />
+                            </Grid>:
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    disabled
+                                    placeholder={`${ref}`}
+                                />
                             </Grid>
+                            }
 
                         </Grid>
                         <Button
