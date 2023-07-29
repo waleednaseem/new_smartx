@@ -7,8 +7,11 @@ import { MdEmail } from "react-icons/md";
 import { AiFillPhone, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FaHubspot, FaRegAddressCard } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 export default function Edit() {
+
+  const datax=useSelector(x=>x)
   
   const [getfull_name, setgetfullname] = useState("");
   const [getemail, setgetemail] = useState("");
@@ -532,12 +535,12 @@ export default function Edit() {
               <div className="flex gap-1">
                 <FaHubspot className="text-primary" size={20} />
                 <div className="text-primary text-sm sm:text-base flex justify-between">
-                  Abrar68711
+                  {datax.refferalID}
                 </div>
               </div>
-              <div>
+              {/* <div>
                 <FiCopy className="text-primary" size={20} />
-              </div>
+              </div> */}
             </div>
             <div className="border-b border-primary"></div>
           </div>

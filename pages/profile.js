@@ -94,6 +94,7 @@ export default function profile() {
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(`https://www.smartxblockchain.com/?ref=${datas.refferalID}`);
+    document.execCommand('copy');
     showTooltip();
   };
 
@@ -270,8 +271,8 @@ export default function profile() {
               // (state == 2 && <PlacementTreeNew state={state} />) ||
               // (state == 3 && <Pakages />)
               state == 4 && (<div className="sm:mx-[30%] ">
-                <div className="font-bold text-xxl text-primary p-4 border border-primary rounded-3xl">
-                  https://www.smartxblockchain.com/?ref={datas.refferalID}
+                <div className="font-bold text-xs md:xl w-[100%] md:w-auto text-primary p-4 border border-primary rounded-3xl">
+                  smartxblockchain.com/?ref={datas.refferalID}
                 </div>
                 <div className="tooltip w-full">
                   <button className="border border-primary w-full p-2 px-3 rounded-3xl text-texting bg-primary" onClick={handleCopyClick} onMouseOut={resetTooltip}>
