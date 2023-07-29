@@ -61,13 +61,13 @@ export default function Wallet() {
         <div className="flex w-[100%] h-full">
           <div className="w-[50%] flex flex-col">
             <div className="flex  flex-col justify-between h-full w-[60%]">
-              <div className="flex text-texting  font-extrabold text-lg items-center justify-center ">
-                <div>Wallet</div>
+              <div className="flex mt-2 text-texting font-extrabold text-lg items-center justify-end ">
+                <div >Wallet</div>
                 {show ?
-                  <div onClick={() => (setshow(!show), tokens())}>
+                  <div className="" onClick={() => (setshow(!show), tokens())}>
                     <AiFillEye size={20} />
                   </div> :
-                  <div onClick={() => (setshow(!show), setBalance(0), setUsdt(0))}>
+                  <div className="" onClick={() => (setshow(!show), setBalance(0), setUsdt(0))}>
                     <AiFillEyeInvisible />
                   </div>
                 }
