@@ -61,9 +61,7 @@ export default function profile() {
     const user = localStorage.getItem("user");
     const decode = jwt_decode(user);
     setdata(decode);
-    console.log(data);
   }, []);
-  console.log(data, '<==');
 
   useEffect(() => {
     API.fetchGet('/finduserdetail')
@@ -85,8 +83,7 @@ export default function profile() {
           dispatch({
             type: 'refferalID',
             payload: x.data.users.id
-          }),
-          console.log(x)
+          })
       })
   }, [])
 

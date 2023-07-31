@@ -6,10 +6,8 @@ import jwtDecode from "jwt-decode";
 export default function RefferalTable2() {
   const [refferal, setRefferal] = useState(null);
   const [token, settoken] = useState(null);
-  // console.log(token.id,'<===token======')
 
   const apidata = async () => {
-    // console.log('requesting')
     const user = await localStorage.getItem("user");
     const decode = await jwtDecode(user);
     settoken(decode);

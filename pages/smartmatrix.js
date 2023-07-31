@@ -17,9 +17,7 @@ export default function smartmatrix() {
   const dispatch = useDispatch()
   const data = useSelector(x => x)
   const [values, setValues] = useState('')
-  useEffect(() => {
-    console.log(data.treeParams)
-  }, [])
+  
   return (
 
     <div className='flex h-[90%] flex-row'>

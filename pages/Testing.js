@@ -159,8 +159,6 @@ export default function Testing() {
       address,
       token: '0x55d398326f99059fF775485246999027B3197955'
     })
-
-    console.log(usdt)
     setBalance(balances.formatted)
     setUsdt(usdt.formatted)
   }
@@ -196,10 +194,6 @@ export default function Testing() {
       _amount //amount of tokens to approve
     ]
   })
-
-  // useEffect(() => {
-  //   console.log({ withdraw_data, isLoading_withdraw, isSuccess_withdraw,data_Deposite })
-  // }, [withdraw_data, isLoading_withdraw, isSuccess_withdraw])
 
   const deposite = async () => {
     await Deposite();

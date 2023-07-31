@@ -27,13 +27,11 @@ export default function Dashboard({ Token }) {
           dispatch({
             type: 'refferalID',
             payload: x.data.users.id
-          }),
-        console.log(x)
+          })
       }
 
       )
     Api.fetchGet('/finduserpakage')
-      // .then(x=> console.log(x.data.packages))
       .catch(err => console.log(err))
   }, [])
 

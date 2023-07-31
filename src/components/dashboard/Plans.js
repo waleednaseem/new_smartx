@@ -27,7 +27,6 @@ export default function Plans() {
       .then(x => setpakages(x.data.packages))
       .catch(err => console.log(err))
     setIsModalOpen(false);
-    console.log('refresed!')
   }, [msg, refresh, selectorData.setModalmsg])
 
 
@@ -49,10 +48,8 @@ export default function Plans() {
           .then(x => setpakages(x.data.packages))
           .catch(err => console.log(err))
         setIsModalOpen(false);
-        console.log('refresed!')
       })
   }
-  // console.log(selectorData.setModalmsg)
   return (
     <div className="w-[100%]  cursor-pointer">
       <Modal

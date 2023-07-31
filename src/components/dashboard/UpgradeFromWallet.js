@@ -13,6 +13,7 @@ export default function UpgradeFromWallet({
   const [currentLevel, setcurrentLevel] = useState("");
   const [Current_pkg, setCurrent_pkg] = useState("");
   const [Refresh, setRefresh] = useState("");
+  // console.log(value.upgrade,"<==========")
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,7 +52,90 @@ export default function UpgradeFromWallet({
       .catch((err) => console.log(err));
   };
 
-  // console.log(onValue,"<==")
+  const pkg_Upgrade = [
+    {
+      pkg_price: 10,
+      upgrades: [
+        { level: 12.5 },
+        { level: 28.125 },
+        { level: 63.281 },
+        { level: 142.383 },
+        { level: 320.361 },
+        { level: 720.813 },
+        { level: 1621.829 },
+        { level: 3649.116 },
+      ]
+    },
+    {
+      pkg_price: 20,
+      upgrades: [
+        { level: 25 },
+        { level: 46.250 },
+        { level: 126.563 },
+        { level: 284.766 },
+        { level: 640.721 },
+        { level: 1441.626 },
+        { level: 3243.658 },
+        { level: 7298.232 },
+      ]
+    },
+    {
+      pkg_price: 50,
+      upgrades: [
+        { level: 62.5 },
+        { level: 140.625 },
+        { level: 316.406 },
+        { level: 711.914 },
+        { level: 1601.807 },
+        { level: 3604.065 },
+        { level: 8109.146 },
+        { level: 18245.579 },
+      ]
+    },
+    {
+      pkg_price: 100,
+      upgrades: [
+        { level: 126 },
+        { level: 281.250 },
+        { level: 632.813 },
+        { level: 1423.828 },
+        { level: 3203.613 },
+        { level: 7208.130 },
+        { level: 16218.292 },
+        { level: 36491.158 },
+      ]
+    },
+    {
+      pkg_price: 200,
+      upgrades: [
+        { level: 250 },
+        { level: 562.5 },
+        { level: 1265.625 },
+        { level: 2847.656 },
+        { level: 6407.227 },
+        { level: 14416.260 },
+        { level: 32436.584 },
+        { level: 72982.315 },
+      ]
+    },
+    {
+      pkg_price: 350,
+      upgrades: [
+        { level: 438 },
+        { level: 984.4 },
+        { level: 2214.844 },
+        { level: 4983.398 },
+        { level: 11212.646 },
+        { level: 25228.455 },
+        { level: 56764.023 },
+        { level: 127719.051 },
+      ]
+    },
+  ]
+  const levels = [1, 2, 3, 4, 5, 6, 7, 8]
+  let upgrade_array
+  upgrade_array = pkg_Upgrade?.find(x => x.pkg_price == value.pkg_price)?.upgrades
+
   const pkg_name = ["Basic", "Standard", "Pro", "Royal", "Gold", "King"];
   return (
     <div className="rounded-4xl">
@@ -89,30 +173,13 @@ export default function UpgradeFromWallet({
               <p className="bg-primary text-texting text-sm sm:text-base p-1 rounded-md flex justify-center cursor-pointer">
                 Levels
               </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                1
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                2
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                3
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                4
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                5
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                6
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                7
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                8
-              </p>
+              {
+                levels.map((x,i) => (
+                  <p key={i} className={`flex ${x==value.level?'bg-primary text-texting':'text-primary'}  justify-center border border-primary  rounded-md cursor-pointer px-2 min-w-[100px]`}>
+                    {x}
+                  </p>
+                ))
+              }
             </div>
           </div>
           <div className="w-[50%] flex justify-center">
@@ -120,30 +187,14 @@ export default function UpgradeFromWallet({
               <p className="bg-primary text-texting text-sm sm:text-base p-1 rounded-md flex justify-center cursor-pointer">
                 Amount
               </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                100
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                200
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                300
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                400
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                500
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                600
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                700
-              </p>
-              <p className="flex justify-center border border-primary text-primary rounded-md cursor-pointer px-2 min-w-[100px]">
-                800
-              </p>
+              {
+                upgrade_array?.map((x,i)=> (
+                  <p key={i} onClick={()=>console.log(x)} className={`flex ${x.level==value.upgrade?'bg-primary text-texting':'text-primary'} justify-center border border-primary rounded-md cursor-pointer px-2 min-w-[100px]`}>
+                    {x.level}
+                  </p>
+                ))
+              }
+
             </div>
           </div>
         </div>

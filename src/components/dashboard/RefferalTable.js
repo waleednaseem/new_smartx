@@ -8,7 +8,6 @@ import Api from '../../API/API'
 export default function RefferalTable() {
   const [refferal, setRefferal] = useState(null);
   const [token, settoken] = useState(null);
-  // console.log(token.id,'<===token======')
 
   const apidata = async () => {
     Api.fetchGet("/find_Direct_Reff_Transactions")

@@ -31,7 +31,6 @@ import { clearSession, getSession, setSession } from '../services/session';
 
 const fetchSignup = async (data, url) => {
 
-  console.log(data, url)
   var config = {
     method: 'post',
     url: apiUrl + url,

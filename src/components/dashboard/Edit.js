@@ -8,15 +8,18 @@ import { AiFillPhone, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FaHubspot, FaRegAddressCard } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
 import { useSelector } from "react-redux";
+import { useAccount } from "wagmi";
+
 
 export default function Edit() {
+  const { address: addressx, isConnected } = useAccount();
+  const datax = useSelector(x => x)
 
-  const datax=useSelector(x=>x)
-  
   const [getfull_name, setgetfullname] = useState("");
   const [getemail, setgetemail] = useState("");
   const [getphone, setgetphone] = useState("");
   const [getaddress, setgetAddr] = useState("");
+  const [getWalletAddr, setWalletAddr] = useState("");
 
   const [full_name, setfullname] = useState(getfull_name);
   const [email, setemail] = useState(getemail);
@@ -28,24 +31,16 @@ export default function Edit() {
   const [code, setOPT] = useState("");
   // const [submit, setSubmit] = useState("");
 
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [wallet_address, setWallet_address] = useState(addressx);
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handlewalletChange = (e) => {
+    setWallet_address(e.target.value);
   };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-
 
   const SendOPT = (e) => {
     e.preventDefault()
     API.fetchPost({ email }, '/verify-email')
       .then(x =>
-      // console.log(x)
       (
         x.data.message == "Verification email sent" ? (toast.success(x.data.message, {
           position: "top-center",
@@ -77,7 +72,7 @@ export default function Edit() {
   }
   const VerifyOPT = (e) => {
     e.preventDefault()
-    API.fetchPost({ code, email, full_name, phone, address }, '/verify-code')
+    API.fetchPost({ code, email, full_name, phone, address, wallet_address }, '/verify-code')
       .then(x => x.data.msg == "Verified successfully !" ?
         toast.success(x.data.msg, {
           position: "top-center",
@@ -107,14 +102,15 @@ export default function Edit() {
   useEffect(() => {
     API.fetchGet('/get_user_profile')
       .then(x => (
-        console.log(x,'<<== get_user_profile'),
         setgetfullname(x.data.full_name),
         setgetAddr(x.data.address),
         setgetemail(x.data.email),
-        setgetphone(x.data.phone)
+        setgetphone(x.data.phone),
+        setWalletAddr(x.data.wallet_address)
       ))
       .catch(x => console.log(x))
-  }, [getfull_name,getaddress,getemail,getphone,verify])
+  }, [getfull_name, getaddress, getemail, getphone, verify])
+
   return (
     <div className="sm:mx-[30%]">
       <ToastContainer
@@ -410,26 +406,16 @@ export default function Edit() {
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[65%]"
               />
             </div>
-            <div className="flex">
+            {addressx ? <div className="flex">
               <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder="Password"
+                type="text"
+                value={addressx}
+                placeholder="Wallet address.."
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
               />
-
-              <button
-                onClick={togglePasswordVisibility}
-                className="border-none cursor-pointer -ml-8 z-10"
-              >
-                {showPassword ? (
-                  <AiFillEye className="text-primary" />
-                ) : (
-                  <AiFillEyeInvisible className="text-primary" />
-                )}
-              </button>
-            </div>
+            </div> :
+              <div>please Connect Wallet First to fill this form and submit this Query!</div>
+            }
 
             {verify == "Verify" && <div className="flex">
               <input
@@ -438,7 +424,7 @@ export default function Edit() {
                 onChange={(e) => setOPT(e.target.value)}
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[75%] z-0"
               />
-              <button className="bg-primary text-texting py-1 px-3 ml-4 text-xs rounded-2xl" onClick={(e)=>SendOPT(e)}>Resent OPT</button>
+              <button className="bg-primary text-texting py-1 px-3 ml-4 text-xs rounded-2xl" onClick={(e) => SendOPT(e)}>Resent OPT</button>
             </div>
 
             }
@@ -453,10 +439,12 @@ export default function Edit() {
               </button> */}
 
 
-              <button onClick={SendOPT} className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[100%]"
-              >
-                Sumbit
-              </button>
+              {addressx &&
+                <button onClick={SendOPT}
+                  className="bg-primary text-texting font-bold py-2 px-2 rounded-lg w-[100%]"
+                >
+                  Sumbit
+                </button>}
             </div> :
               <div className="flex justify-center  w-[100%]">
                 <button onClick={(e) => (VerifyOPT(e), setState("Back"))} className="bg-primary w-[100%] text-texting font-bold py-2 rounded-lg z-10  my-0.5 text-xs sm:text-base">
@@ -526,6 +514,19 @@ export default function Edit() {
             </div>
             <div className="border-b border-primary"></div>
           </div>
+          <div className="py-2">
+            <div className="text-gray-500 text-xs sm:text-base">Wallet Address</div>
+            <div className="flex gap-1 mx-2">
+              <FaRegAddressCard className="text-primary" size={20} />
+              {getWalletAddr == null ? <div className="text-red-500 text-xs sm:text-base">
+                *Required
+              </div> :
+                <div className="w-full overflow-x-scroll">
+                  {getWalletAddr}
+                </div>}
+            </div>
+            <div className="border-b border-primary"></div>
+          </div>
 
           <div className="py-2">
             <div className="text-gray-500 text-xs sm:text-base">
@@ -550,7 +551,6 @@ export default function Edit() {
         <div
           onClick={() => {
             setState("Edit");
-            console.log("Clicked");
           }}
           className="flex justify-center bg-primary my-2 mx-1 cursor-pointer hover:font-bold rounded-lg text-texting px-4 py-2"
         >

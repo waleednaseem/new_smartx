@@ -7,7 +7,6 @@ export default function Upgrades({ isModalOpen, setIsModalOpen, onValue,value })
     setIsModalOpen(false);
   };
 
-  // console.log(onValue);
   return (
     <div >
       <UpgradeFromWallet setIsModalOpen={setIsModalOpen} onValue={onValue} value={value}/>
