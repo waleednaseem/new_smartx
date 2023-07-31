@@ -70,10 +70,10 @@ export default function UpgradeFromWallet({
       pkg_price: 20,
       upgrades: [
         { level: 25 },
-        { level: 46.250 },
+        { level: 56.25 },
         { level: 126.563 },
         { level: 284.766 },
-        { level: 640.721 },
+        { level: 640.723 },
         { level: 1441.626 },
         { level: 3243.658 },
         { level: 7298.232 },
@@ -95,7 +95,7 @@ export default function UpgradeFromWallet({
     {
       pkg_price: 100,
       upgrades: [
-        { level: 126 },
+        { level: 125 },
         { level: 281.250 },
         { level: 632.813 },
         { level: 1423.828 },
@@ -121,8 +121,8 @@ export default function UpgradeFromWallet({
     {
       pkg_price: 350,
       upgrades: [
-        { level: 438 },
-        { level: 984.4 },
+        { level: 437.5 },
+        { level: 984.375 },
         { level: 2214.844 },
         { level: 4983.398 },
         { level: 11212.646 },
