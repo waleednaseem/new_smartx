@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Api from "../../API/API";
 import { useDispatch } from "react-redux";
+import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
+// import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
+import { useRouter } from "next/router";
+import abi from '../../Data/Abis.json'
+import { parseEther } from "viem";
+
 export default function UpgradeFromWallet({
   isModalOpen,
   onValue,
@@ -15,6 +21,7 @@ export default function UpgradeFromWallet({
   const [Refresh, setRefresh] = useState("");
   // console.log(value.upgrade,"<==========")
 
+  const { data: walletClient } = useWalletClient();
   const dispatch = useDispatch();
   useEffect(() => {
     pkgInfo();
@@ -40,6 +47,28 @@ export default function UpgradeFromWallet({
       .catch((err) => console.log(err));
   };
 
+    const Eth_value=`${NextPrice}`
+
+  const { data: withdraw_data, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    abi:abi ,
+    walletClient,
+    functionName: 'upgrades',
+    args: [
+      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //direct
+      "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //placement
+      parseEther(Eth_value)
+    ]
+  })
+
+  const { data:transac } = useWaitForTransaction({
+     hash: withdraw_data,
+    })
+    console.log("transaction ==>",transac)
+  const upgradess = async () => {
+    await upgrades();
+  };
+
   const pkgInfo = () => {
     Api.fetchPost({ pkg: value.pkg_price }, "/Pakage_info")
       .then((x) => {
@@ -50,6 +79,21 @@ export default function UpgradeFromWallet({
         // console.log(x.data,'<===')
       })
       .catch((err) => console.log(err));
+  };
+
+  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
+    abi: erc20ABI,
+    walletClient,
+    functionName: 'approve',
+    args: [
+      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
+      parseEther(Eth_value) //amount of tokens to approve
+    ]
+  })
+
+  const Approves = async () => {
+    await Approve();
   };
 
   const pkg_Upgrade = [
@@ -198,8 +242,11 @@ export default function UpgradeFromWallet({
             </div>
           </div>
         </div>
+      <div><button onClick={Approves}>Approves</button></div>
 
-        {currentLevel != 8 ? (
+      <div><button onClick={upgradess}>upgrades</button></div>
+
+        {/* {currentLevel != 8 ? (
           <div className="flex justify-center items-center">
             <button
               onClick={() => Upgrade()}
@@ -216,7 +263,7 @@ export default function UpgradeFromWallet({
               Upgrade Complete !
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -3,13 +3,19 @@ import Modal from "react-modal";
 import Upgrades from "./Upgrades";
 import API from "../../API/API";
 import { useSelector } from "react-redux";
-import {AiFillLock} from 'react-icons/ai'
+import { AiFillLock } from 'react-icons/ai';
+import { parseEther } from "viem";
+import abi from '../../Data/Abis.json'
+
+import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useTransaction } from "wagmi";
+import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
 
 export default function Plans() {
   const selectorData = useSelector(x => x)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
+
   const closeModal = () => {
     setIsModalOpen(false);
     setIsModalOpen2(false);
@@ -21,6 +27,7 @@ export default function Plans() {
   const [pakages, setpakages] = useState([]);
   const [msg, setmsg] = useState("");
   const [refresh, setRefresh] = useState(1);
+  const [Transaction_done, setTransaction_done] = useState("");
 
   useEffect(() => {
     API.fetchGet('/finduserpakage')
@@ -28,7 +35,7 @@ export default function Plans() {
       .catch(err => console.log(err))
     setIsModalOpen(false);
   }, [msg, refresh, selectorData.setModalmsg])
-
+  // const [_amount, set_amount] = useState(value?.pkg_price);
 
   const pkg_name = ["Basic", "Standard", "Pro", "Royal", "Gold", "King"]
   const customStyles = {
@@ -50,6 +57,65 @@ export default function Plans() {
         setIsModalOpen(false);
       })
   }
+  const { data: walletClient } = useWalletClient();
+
+  const Eth_value = value.pkg_price + "000000000000000000"
+
+  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
+    abi: erc20ABI,
+    walletClient,
+    functionName: 'approve',
+    args: [
+      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
+      Eth_value
+    ]
+  })
+
+  // const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
+
+  //   address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+  //   abi: abi,
+  //   walletClient,
+  //   functionName: 'palcement',
+  //   args: [
+  //     "0x6cE7bEB02ba0cCebaB4d50832e49b2116e31b4A8", //direct
+  //     "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //placement
+  //     Eth_value
+  //   ]
+
+  // }
+  // )
+
+  // const { data:transac } = useTransaction({
+  //   hash: 0x437c691137bBf6393e967eD711a3C31726b49CC8,
+  //  })
+
+  // console.log("====>", data_Purchase)
+  const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
+
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    abi: abi,
+    walletClient,
+    functionName: 'palcement',
+    args: [
+      "0x6cE7bEB02ba0cCebaB4d50832e49b2116e31b4A8", //direct
+      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //placement
+      Eth_value
+    ]
+  })
+  useEffect(()=>{
+   console.log('Hitting!',data_Purchase)
+   PackagePurchase(value.pkg_price)
+  },[data_Purchase])
+  const placements = async () => {
+    
+    await palcement();
+  };
+
+  const Approves = async () => {
+    await Approve();
+  };
   return (
     <div className="w-[100%]  cursor-pointer">
       <Modal
@@ -98,7 +164,7 @@ export default function Plans() {
             </div>
             :
             <div key={i} onClick={() => { setIsModalOpen2(true), setValue(x) }} className={`my-2`}>
-               <div
+              <div
                 // onClick={() => setIsModalOpen(true)}
                 className="flex-col sm:rounded-t-lg rounded-t-2xl py-2 bg-primary text-texting flex justify-center items-center text-sm lg:text-base hover:text-white"
               >
@@ -117,7 +183,7 @@ export default function Plans() {
                       src="images/USDT.png"
                       alt=""
                     />
-                    <AiFillLock/>
+                    <AiFillLock />
                   </div>
                 </div>
               </div>
@@ -133,12 +199,15 @@ export default function Plans() {
             <div>Are You sure you want to purchase</div>
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
-              <button onClick={() => PackagePurchase(value.pkg_price)} className="bg-green-800 text-white px-8 py-2 rounded-3xl">yes</button>
-              <button onClick={() => setIsModalOpen2(false)} className="bg-red-600 text-white px-8 py-2 rounded-3xl">no</button>
+              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Approves</button>
+              <button
+                onClick={placements}
+                className="bg-green-800 text-white px-8 py-2 rounded-3xl">Purchase</button>
+              {/* <button onClick={() => setIsModalOpen2(false)} className="bg-red-600 text-white px-8 py-2 rounded-3xl">no</button> */}
             </div>
           </div>
         </Modal>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
