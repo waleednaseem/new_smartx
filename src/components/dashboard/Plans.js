@@ -71,27 +71,7 @@ export default function Plans() {
       Eth_value
     ]
   })
-
-  // const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
-
-  //   address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
-  //   abi: abi,
-  //   walletClient,
-  //   functionName: 'palcement',
-  //   args: [
-  //     "0x6cE7bEB02ba0cCebaB4d50832e49b2116e31b4A8", //direct
-  //     "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //placement
-  //     Eth_value
-  //   ]
-
-  // }
-  // )
-
-  // const { data:transac } = useTransaction({
-  //   hash: 0x437c691137bBf6393e967eD711a3C31726b49CC8,
-  //  })
-
-  // console.log("====>", data_Purchase)
+  // console.log({approve_data,isLoading_approve,isSuccess_approve})
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
 
     address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
@@ -104,17 +84,33 @@ export default function Plans() {
       Eth_value
     ]
   })
+// console.log({approve_data,isLoading_approve,isSuccess_approve})
+
   useEffect(()=>{
    console.log('Hitting!',data_Purchase)
-   PackagePurchase(value.pkg_price)
+   data_Purchase?.hash&&PackagePurchase(value.pkg_price)
   },[data_Purchase])
+
+  // const condition = (isSuccess_approve ==true)
+  // console.log(condition)
+  useEffect(() => {
+    const timeoutId = setTimeout(async() => {
+      console.log('Timeout action executed!');
+      await palcement()
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isSuccess_approve]);
+
   const placements = async () => {
-    
     await palcement();
   };
 
   const Approves = async () => {
     await Approve();
+
   };
   return (
     <div className="w-[100%]  cursor-pointer">
