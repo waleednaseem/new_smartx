@@ -27,7 +27,7 @@ export default function UpgradeFromWallet({
     pkgInfo();
   }, [Refresh]);
 
-  const Upgrade = () => {
+  const Upgrade_pkg = () => {
     Api.fetchPost(
       {
         pkg: value.pkg_price,
@@ -47,11 +47,11 @@ export default function UpgradeFromWallet({
       .catch((err) => console.log(err));
   };
 
-    const Eth_value=`${NextPrice}`
+  const Eth_value = `${NextPrice}`
 
-  const { data: withdraw_data, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
+  const { data: upgradex, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
     address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
-    abi:abi ,
+    abi: abi,
     walletClient,
     functionName: 'upgrades',
     args: [
@@ -60,14 +60,6 @@ export default function UpgradeFromWallet({
       parseEther(Eth_value)
     ]
   })
-
-  const { data:transac } = useWaitForTransaction({
-     hash: withdraw_data,
-    })
-    console.log("transaction ==>",transac)
-  const upgradess = async () => {
-    await upgrades();
-  };
 
   const pkgInfo = () => {
     Api.fetchPost({ pkg: value.pkg_price }, "/Pakage_info")
@@ -91,6 +83,24 @@ export default function UpgradeFromWallet({
       parseEther(Eth_value) //amount of tokens to approve
     ]
   })
+
+  console.log({isSuccess_approve,isSuccess_withdraw,approve_data,upgradex})
+
+  useEffect(() => {
+    console.log('hitting')
+    isSuccess_withdraw == true &&Upgrade_pkg()
+  }, [isSuccess_withdraw])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(async () => {
+      console.log('Timeout action executed!');
+      isSuccess_approve== true&& await upgrades()
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isSuccess_approve]);
 
   const Approves = async () => {
     await Approve();
@@ -218,8 +228,8 @@ export default function UpgradeFromWallet({
                 Levels
               </p>
               {
-                levels.map((x,i) => (
-                  <p key={i} className={`flex ${x==value.level?'bg-primary text-texting':'text-primary'}  justify-center border border-primary  rounded-md cursor-pointer px-2 min-w-[100px]`}>
+                levels.map((x, i) => (
+                  <p key={i} className={`flex ${x == value.level ? 'bg-primary text-texting' : 'text-primary'}  justify-center border border-primary  rounded-md cursor-pointer px-2 min-w-[100px]`}>
                     {x}
                   </p>
                 ))
@@ -232,8 +242,8 @@ export default function UpgradeFromWallet({
                 Amount
               </p>
               {
-                upgrade_array?.map((x,i)=> (
-                  <p key={i} onClick={()=>console.log(x)} className={`flex ${x.level==value.upgrade?'bg-primary text-texting':'text-primary'} justify-center border border-primary rounded-md cursor-pointer px-2 min-w-[100px]`}>
+                upgrade_array?.map((x, i) => (
+                  <p key={i} onClick={() => console.log(x)} className={`flex ${x.level == value.upgrade ? 'bg-primary text-texting' : 'text-primary'} justify-center border border-primary rounded-md cursor-pointer px-2 min-w-[100px]`}>
                     {x.level}
                   </p>
                 ))
@@ -242,14 +252,12 @@ export default function UpgradeFromWallet({
             </div>
           </div>
         </div>
-      <div><button onClick={Approves}>Approves</button></div>
-
-      <div><button onClick={upgradess}>upgrades</button></div>
-
-        {/* {currentLevel != 8 ? (
+        
+        
+        {currentLevel != 8 ? (
           <div className="flex justify-center items-center">
             <button
-              onClick={() => Upgrade()}
+              onClick={() => Approves()}
               className="bg-primary text-texting p-2 rounded-2xl transform hover:scale-110 hover:bg-opacity-50 transition ease-in duration-300 my-5 py-4"
             >
               Upgrade to Level-
@@ -263,7 +271,7 @@ export default function UpgradeFromWallet({
               Upgrade Complete !
             </button>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );
