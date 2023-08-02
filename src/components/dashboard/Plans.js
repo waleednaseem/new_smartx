@@ -21,6 +21,12 @@ export default function Plans() {
     setIsModalOpen2(false);
 
   };
+  // useEffect(() => {
+  //   API.fetchPost({ pkg: value.pkg_price }, "/user_on_purchase")
+  //     .then(x => console.log(x, '<== Purchase price'))
+  // }, [isModalOpen2])
+
+  
 
   const [onValue, setOnValue] = useState("");
   const [value, setValue] = useState("");
@@ -28,6 +34,8 @@ export default function Plans() {
   const [msg, setmsg] = useState("");
   const [refresh, setRefresh] = useState(1);
   const [Transaction_done, setTransaction_done] = useState("");
+  const [PLACEMENT, setPLACEMENT] = useState("");
+  const [REFFERAL, setREFFERAL] = useState("");
 
   useEffect(() => {
     API.fetchGet('/finduserpakage')
@@ -36,6 +44,21 @@ export default function Plans() {
     setIsModalOpen(false);
   }, [msg, refresh, selectorData.setModalmsg])
   // const [_amount, set_amount] = useState(value?.pkg_price);
+  
+  const test = async (e) => {
+    // e.preventDefault()
+    console.log(value.pkg_price, 'hit')
+     await API.fetchPost({ pkg: value.pkg_price }, '/user_on_purchase')
+      .then(x => (
+        console.log(x, '<== Purchase price'),
+        setPLACEMENT(x.data.placement),
+        setREFFERAL(x.data.Direct_reff)
+      ))
+      .catch(x => console.log(x, '<== Purchase price'))
+  }
+  // useEffect((e) => {
+  //   test()
+  // }, [value.pkg_price])
 
   const pkg_name = ["Basic", "Standard", "Pro", "Royal", "Gold", "King"]
   const customStyles = {
@@ -62,39 +85,39 @@ export default function Plans() {
   const Eth_value = value.pkg_price + "000000000000000000"
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
+    address: "0x55d398326f99059fF775485246999027B3197955",
     abi: erc20ABI,
     walletClient,
     functionName: 'approve',
     args: [
-      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
+      "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679", //spender contract address
       Eth_value
     ]
   })
   // console.log({approve_data,isLoading_approve,isSuccess_approve})
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
 
-    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    address: "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679",
     abi: abi,
     walletClient,
     functionName: 'palcement',
     args: [
-      "0x6cE7bEB02ba0cCebaB4d50832e49b2116e31b4A8", //direct
-      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //placement
+      REFFERAL, //direct
+      PLACEMENT, //placement
       Eth_value
     ]
   })
-// console.log({approve_data,isLoading_approve,isSuccess_approve})
+  // console.log({approve_data,isLoading_approve,isSuccess_approve})
 
-  useEffect(()=>{
-   console.log('Hitting!',data_Purchase)
-   data_Purchase?.hash&&PackagePurchase(value.pkg_price)
-  },[data_Purchase])
+  useEffect(() => {
+    console.log('Hitting!', data_Purchase)
+    data_Purchase?.hash && PackagePurchase(value.pkg_price)
+  }, [data_Purchase])
 
   // const condition = (isSuccess_approve ==true)
   // console.log(condition)
   useEffect(() => {
-    const timeoutId = setTimeout(async() => {
+    const timeoutId = setTimeout(async () => {
       console.log('Timeout action executed!');
       await palcement()
     }, 2000);
@@ -103,10 +126,6 @@ export default function Plans() {
       clearTimeout(timeoutId);
     };
   }, [isSuccess_approve]);
-
-  const placements = async () => {
-    await palcement();
-  };
 
   const Approves = async () => {
     await Approve();
@@ -195,12 +214,8 @@ export default function Plans() {
             <div>Are You sure you want to purchase</div>
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
-              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Approves</button>
-              <button
-                onClick={placements}
-                className="bg-green-800 text-white px-8 py-2 rounded-3xl">Purchase</button>
-              {/* <button onClick={() => setIsModalOpen2(false)} className="bg-red-600 text-white px-8 py-2 rounded-3xl">no</button> */}
-            </div>
+              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
+             </div>
           </div>
         </Modal>
       </div >

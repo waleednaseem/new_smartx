@@ -28,7 +28,7 @@ function Home({toast}) {
       
       <Slider />
       <Announcement />
-      <ProductHero />
+      {/* <ProductHero /> */}
       {/* <ProductCategories /> */}
       {/* <Accordian /> */}
       {/* <ProductSmokingHero /> */}

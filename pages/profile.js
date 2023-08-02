@@ -140,9 +140,9 @@ export default function profile() {
               {state == "Deposit" && (
                 <Deposit setIsModalOpen={setIsModalOpen} />
               )}
-              {state == "Withdraw" && (
+              {/* {state == "Withdraw" && (
                 <Withdraw setIsModalOpen={setIsModalOpen} toast={toast} />
-              )}
+              )} */}
 
               <ToastContainer
                 position="top-right"
@@ -158,7 +158,7 @@ export default function profile() {
               />
             </Modal>
 
-            <div className="flex flex-col lg:flex-row justify-center items-center">
+            {/* <div className="flex flex-col lg:flex-row justify-center items-center">
 
               <div
                 onClick={() => {
@@ -169,9 +169,7 @@ export default function profile() {
                 <TbWallet className="text-texting mx-9 sm:mx-0 " size={25} />
                 <div className="text-sm text-texting mx-3 sm:-mx-4">Withdrawal</div>
               </div>
-            </div>
-
-            <div className=" my-4 mx-2 border-b border-white"></div>
+            </div> */}
 
             <div>
               <div

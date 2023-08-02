@@ -84,7 +84,7 @@ export default function SignupPage({ setState, toast }) {
             {
                 username: username,
                 password: password,
-                refferal: ref||refferal
+                refferal: ref || refferal
             },
             "/register"
         ).then((x) => {
@@ -115,92 +115,95 @@ export default function SignupPage({ setState, toast }) {
 
         });
     };
-    console.log({ref,router},"<== check kro isay")
+    console.log({ ref, router }, "<== check kro isay")
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <img className="bg-primary rounded-md" src="images/smart(1).png" height={100} width={100} />
-                    <Typography component="h1" variant="h5">
-                        Sign up 
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
+        <div>
+            <ThemeProvider theme={defaultTheme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <img className="bg-primary rounded-md" src="images/smart(1).png" height={100} width={100} />
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <Box component="form" noValidate sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="Username"
-                                    label="Username"
-                                    name="Username"
-                                    autoComplete="Username"
-                                    onChange={(e) => setUsername(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                            {ref ==null?<Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="Refferal"
-                                    label="Refferal ID"
-                                    type="Refferal"
-                                    id="Refferal"
-                                    autoComplete="new-Refferal"
-                                    onChange={(e) => setRefferal(e.target.value)}
-                                />
-                            </Grid>:
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    disabled
-                                    placeholder={`${ref}`}
-                                />
-                            </Grid>
-                            }
-
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            sx={{ mt: 3, mb: 2, backgroundColor: 'red' }}
-                            className="bg-primary text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex">
-                            <Grid item>
-                                <div className="flex sm:gap-4 gap-2 text-xs sm:text-base" >
-                                    Already have an account? <p onClick={() => setState(1)} className="bg-bgprimary text-primary px-2 hover:font-bold cursor-pointer">Sign In</p>
-                                </div>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="Username"
+                                        label="Username"
+                                        name="Username"
+                                        autoComplete="Username"
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="new-password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Grid>
+                                {ref == null ? <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="Refferal"
+                                        label="Refferal ID"
+                                        type="Refferal"
+                                        id="Refferal"
+                                        autoComplete="new-Refferal"
+                                        onChange={(e) => setRefferal(e.target.value)}
+                                    />
+                                </Grid> :
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            required
+                                            fullWidth
+                                            disabled
+                                            placeholder={`${ref}`}
+                                        />
+                                    </Grid>
+                                }
 
                             </Grid>
-                        </Grid>
+
+                            <button
+                                onClick={handleSubmit}
+                                type="submit"
+                                className="bg-primary w-full p-3 mb-2 mt-2 text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
+                            >
+                                Sign Up
+                            </button>
+                            <Grid container justifyContent="flex">
+                                <Grid item>
+                                    <div className="flex sm:gap-4 gap-2 text-xs sm:text-base" >
+                                        Already have an account? <p onClick={() => setState(1)} className="bg-bgprimary text-primary px-2 hover:font-bold cursor-pointer">Sign In</p>
+                                    </div>
+
+                                </Grid>
+                            </Grid>
+                        </Box>
                     </Box>
-                </Box>
-                <Copyright sx={{ mt: 5 }} />
-            </Container>
-        </ThemeProvider>
+                    <Copyright sx={{ mt: 5 }} />
+                </Container>
+            </ThemeProvider>
+
+        </div>
     );
 }

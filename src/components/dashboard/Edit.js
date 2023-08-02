@@ -458,7 +458,7 @@ export default function Edit() {
       )}
 
       {state == "Back" && (
-        <div className="bg-white rounded-lg px-2">
+        <div className="bg-white rounded-lg px-2 h-[200px] overflow-scroll">
           <div className="py-2">
             <div className="text-gray-500 text-xs sm:text-base">Name</div>
             <div className="flex gap-1 mx-2">

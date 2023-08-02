@@ -3,10 +3,10 @@ import { AiOutlineClose } from "react-icons/ai";
 import Api from "../../API/API";
 import { useDispatch } from "react-redux";
 import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
-// import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
 import { useRouter } from "next/router";
 import abi from '../../Data/Abis.json'
 import { parseEther } from "viem";
+import API from "../../API/API";
 
 export default function UpgradeFromWallet({
   isModalOpen,
@@ -19,7 +19,26 @@ export default function UpgradeFromWallet({
   const [currentLevel, setcurrentLevel] = useState("");
   const [Current_pkg, setCurrent_pkg] = useState("");
   const [Refresh, setRefresh] = useState("");
-  // console.log(value.upgrade,"<==========")
+  const [PLACEMENT, setPLACEMENT] = useState("");
+  const [REFFERAL, setREFFERAL] = useState("");
+  console.log(PLACEMENT, "<=====PLACEMENT=====")
+  console.log(REFFERAL, "<=====REFFERAL=====")
+
+
+  const test = async (e) => {
+    // e.preventDefault()
+    console.log(value.pkg_price, 'hit')
+    await API.fetchPost({ pkg: value.pkg_price }, '/user_on_upgrade')
+      .then(x => (
+        console.log(x, '<== Purchase price'),
+        setPLACEMENT(x.data.placement),
+        setREFFERAL(x.data.Direct_reff)
+      ))
+      .catch(x => console.log(x, '<== Purchase price'))
+  }
+  useEffect((e) => {
+    test()
+  }, [])
 
   const { data: walletClient } = useWalletClient();
   const dispatch = useDispatch();
@@ -50,13 +69,13 @@ export default function UpgradeFromWallet({
   const Eth_value = `${NextPrice}`
 
   const { data: upgradex, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
-    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    address: "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679",
     abi: abi,
     walletClient,
     functionName: 'upgrades',
     args: [
-      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //direct
-      "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //placement
+      REFFERAL, //direct
+      PLACEMENT, //placement
       parseEther(Eth_value)
     ]
   })
@@ -74,27 +93,27 @@ export default function UpgradeFromWallet({
   };
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
+    address: "0x55d398326f99059fF775485246999027B3197955",
     abi: erc20ABI,
     walletClient,
     functionName: 'approve',
     args: [
-      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
+      "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679", //spender contract address
       parseEther(Eth_value) //amount of tokens to approve
     ]
   })
 
-  console.log({isSuccess_approve,isSuccess_withdraw,approve_data,upgradex})
+  console.log({ isSuccess_approve, isSuccess_withdraw, approve_data, upgradex })
 
   useEffect(() => {
     console.log('hitting')
-    isSuccess_withdraw == true &&Upgrade_pkg()
+    isSuccess_withdraw == true && Upgrade_pkg()
   }, [isSuccess_withdraw])
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       console.log('Timeout action executed!');
-      isSuccess_approve== true&& await upgrades()
+      isSuccess_approve == true && await upgrades()
     }, 5000);
 
     return () => {
@@ -252,9 +271,7 @@ export default function UpgradeFromWallet({
             </div>
           </div>
         </div>
-        
-        
-        {currentLevel != 8 ? (
+        {currentLevel != 8 && PLACEMENT != null && REFFERAL != null && (
           <div className="flex justify-center items-center">
             <button
               onClick={() => Approves()}
@@ -265,13 +282,17 @@ export default function UpgradeFromWallet({
               {NextPrice} USDT)
             </button>
           </div>
-        ) : (
-          <div className="flex justify-center items-center">
-            <button className="bg-primary text-texting p-2 rounded-2xl transform hover:scale-110 hover:bg-opacity-50 transition ease-in duration-300 my-5 py-4">
-              Upgrade Complete !
-            </button>
-          </div>
-        )}
+        )
+        }
+        {
+          currentLevel == 8 && (
+            <div className="flex justify-center items-center">
+              <button className="bg-primary text-texting p-2 rounded-2xl transform hover:scale-110 hover:bg-opacity-50 transition ease-in duration-300 my-5 py-4">
+                Upgrade Complete !
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   );
