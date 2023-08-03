@@ -47,7 +47,7 @@ export default function Plans() {
   
   const test = async (e) => {
     // e.preventDefault()
-    console.log(value.pkg_price, 'hit')
+    console.log(value.pkg_price, 'hit purchase')
      await API.fetchPost({ pkg: value.pkg_price }, '/user_on_purchase')
       .then(x => (
         console.log(x, '<== Purchase price'),
@@ -56,9 +56,9 @@ export default function Plans() {
       ))
       .catch(x => console.log(x, '<== Purchase price'))
   }
-  // useEffect((e) => {
-  //   test()
-  // }, [value.pkg_price])
+  useEffect((e) => {
+    test()
+  }, [value.pkg_price])
 
   const pkg_name = ["Basic", "Standard", "Pro", "Royal", "Gold", "King"]
   const customStyles = {
@@ -85,7 +85,7 @@ export default function Plans() {
   const Eth_value = value.pkg_price + "000000000000000000"
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x55d398326f99059fF775485246999027B3197955",
+    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
     abi: erc20ABI,
     walletClient,
     functionName: 'approve',
@@ -107,15 +107,12 @@ export default function Plans() {
       Eth_value
     ]
   })
-  // console.log({approve_data,isLoading_approve,isSuccess_approve})
 
   useEffect(() => {
     console.log('Hitting!', data_Purchase)
     data_Purchase?.hash && PackagePurchase(value.pkg_price)
   }, [data_Purchase])
 
-  // const condition = (isSuccess_approve ==true)
-  // console.log(condition)
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       console.log('Timeout action executed!');
@@ -128,8 +125,8 @@ export default function Plans() {
   }, [isSuccess_approve]);
 
   const Approves = async () => {
+    await test();
     await Approve();
-
   };
   return (
     <div className="w-[100%]  cursor-pointer">
@@ -215,6 +212,7 @@ export default function Plans() {
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
               <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
+              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button>
              </div>
           </div>
         </Modal>
