@@ -79,12 +79,18 @@ export default function profile() {
           type: 'username',
           payload: x.data.users.username
         })
-          ,
-          dispatch({
-            type: 'refferalID',
-            payload: x.data.users.id
-          })
       })
+  }, [])
+
+  useEffect(() => {
+    API.fetchGet('/myreff')
+      .then(x => (
+        dispatch({
+          type: 'refferalID',
+          payload: x.data.refferal_code
+        })
+      ))
+      .catch(x => console.log(x))
   }, [])
 
   const inputRef = useRef(null);
@@ -158,18 +164,7 @@ export default function profile() {
               />
             </Modal>
 
-            {/* <div className="flex flex-col lg:flex-row justify-center items-center">
 
-              <div
-                onClick={() => {
-                  setIsModalOpen(true), setState("Withdraw");
-                }}
-                className="mx-0 sm:mx-16 mt-4 sm:mt-0 cursor-pointer flex justify-center items-center flex-col"
-              >
-                <TbWallet className="text-texting mx-9 sm:mx-0 " size={25} />
-                <div className="text-sm text-texting mx-3 sm:-mx-4">Withdrawal</div>
-              </div>
-            </div> */}
 
             <div>
               <div

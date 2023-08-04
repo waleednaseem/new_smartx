@@ -84,7 +84,7 @@ export default function SignupPage({ setState, toast }) {
             {
                 username: username,
                 password: password,
-                refferal: ref || refferal
+                refferal_code: ref || refferal
             },
             "/register"
         ).then((x) => {

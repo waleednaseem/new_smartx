@@ -149,7 +149,7 @@ export default function Loginpage({ setState, toast }) {
               type="submit"
               className="bg-primary w-full p-3 mt-2 mb-2 text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
             >
-              Sign Up
+              Sign In
             </button>
             <Grid container>
               {/* <Grid item xs>

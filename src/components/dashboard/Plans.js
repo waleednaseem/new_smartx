@@ -26,7 +26,7 @@ export default function Plans() {
   //     .then(x => console.log(x, '<== Purchase price'))
   // }, [isModalOpen2])
 
-  
+
 
   const [onValue, setOnValue] = useState("");
   const [value, setValue] = useState("");
@@ -44,11 +44,11 @@ export default function Plans() {
     setIsModalOpen(false);
   }, [msg, refresh, selectorData.setModalmsg])
   // const [_amount, set_amount] = useState(value?.pkg_price);
-  
+
   const test = async (e) => {
     // e.preventDefault()
     console.log(value.pkg_price, 'hit purchase')
-     await API.fetchPost({ pkg: value.pkg_price }, '/user_on_purchase')
+    await API.fetchPost({ pkg: value.pkg_price }, '/user_on_purchase')
       .then(x => (
         console.log(x, '<== Purchase price'),
         setPLACEMENT(x.data.placement),
@@ -71,12 +71,15 @@ export default function Plans() {
       // padding: "-20px",
     },
   };
-  const PackagePurchase = (pkg) => {
-    API.fetchPost({ pkg }, '/purchase_package')
+  const PackagePurchase = () => {
+    console.log("PackagePurchase", "<====")
+    API.fetchPost({ pkg: value.pkg_price }, '/purchase_package')
       .then(x => {
-        setmsg(x.data.msg), setIsModalOpen2(false), x.data.msg && API.fetchGet('/finduserpakage')
-          .then(x => setpakages(x.data.packages))
-          .catch(err => console.log(err))
+        console.log("/purchase_package", "<==API==")
+        setmsg(x.data.msg), setIsModalOpen2(false), x.data.msg &&
+          API.fetchGet('/finduserpakage')
+            .then(x => setpakages(x.data.packages))
+            .catch(err => console.log(err))
         setIsModalOpen(false);
       })
   }
@@ -90,14 +93,14 @@ export default function Plans() {
     walletClient,
     functionName: 'approve',
     args: [
-      "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679", //spender contract address
+      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
       Eth_value
     ]
   })
   // console.log({approve_data,isLoading_approve,isSuccess_approve})
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
 
-    address: "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679",
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
     abi: abi,
     walletClient,
     functionName: 'palcement',
@@ -109,8 +112,8 @@ export default function Plans() {
   })
 
   useEffect(() => {
-    console.log('Hitting!', data_Purchase)
-    data_Purchase?.hash && PackagePurchase(value.pkg_price)
+    console.log('purchase now!!', value.pkg_price, data_Purchase)
+    data_Purchase?.hash&& PackagePurchase()
   }, [data_Purchase])
 
   useEffect(() => {
@@ -183,7 +186,7 @@ export default function Plans() {
                 <p className="-my-1">Purchase package</p>
               </div>
               <div
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsModalOpen2(true)}
                 className={`  bg-slate-50 rounded-b-3xl py-2  h-[75%] flex flex-col justify-center items-center`}
               >
                 <p className="text-sm text-primary font-extrabold lg:text-lg">{pkg_name[i]}</p>
@@ -212,8 +215,8 @@ export default function Plans() {
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
               <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
-              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button>
-             </div>
+              {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button> */}
+            </div>
           </div>
         </Modal>
       </div >

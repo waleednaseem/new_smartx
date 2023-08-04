@@ -110,6 +110,7 @@ export default function Edit() {
       ))
       .catch(x => console.log(x))
   }, [getfull_name, getaddress, getemail, getphone, verify])
+ 
 
   return (
     <div className="sm:mx-[30%]">

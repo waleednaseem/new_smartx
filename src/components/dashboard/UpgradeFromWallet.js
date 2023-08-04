@@ -69,7 +69,7 @@ export default function UpgradeFromWallet({
   const Eth_value = `${NextPrice}`
 
   const { data: upgradex, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
-    address: "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679",
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
     abi: abi,
     walletClient,
     functionName: 'upgrades',
@@ -93,12 +93,12 @@ export default function UpgradeFromWallet({
   };
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x55d398326f99059fF775485246999027B3197955",
+    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
     abi: erc20ABI,
     walletClient,
     functionName: 'approve',
     args: [
-      "0x8790872eEA7e3e31A818Ba8991e710ea74e8c679", //spender contract address
+      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
       parseEther(Eth_value) //amount of tokens to approve
     ]
   })
