@@ -9,6 +9,7 @@ import SliderDB from "../src/components/SliderDB";
 import { useDispatch, useSelector } from "react-redux";
 import Api from '../src/API/API'
 import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 
 export default function Dashboard({ Token }) {
   const [data, setdata] = useState(false);
@@ -16,6 +17,22 @@ export default function Dashboard({ Token }) {
   const dispatch = useDispatch()
   const dataS = useSelector(x => x)
 
+  const router = useRouter();
+  const { ref } = router.query;
+
+  const LoadFunction = async () => {
+    console.log(ref, "<==ref++")
+    if (ref == undefined) {
+      console.log(ref)
+    } else {
+      localStorage.removeItem("user"),
+        window.location.assign(`/?ref=${ref}`);
+    }
+  }
+
+  useEffect(() => {
+    LoadFunction()
+  }, [ref])
   useEffect(() => {
     Api.fetchGet('/finduserdetail')
       .then(x => {
