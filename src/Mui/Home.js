@@ -9,6 +9,7 @@ import Announcement from '../components/Announcement';
 import Accordian from './Components/Accordian';
 import { fetchGet } from '../../redux/actions/auth'
 import Api from '../../src/API/API'
+import Howitworks from '../components/homepage/Howitworks';
 
 
 function Home({toast}) {
@@ -28,7 +29,8 @@ function Home({toast}) {
       
       <Slider />
       <Announcement />
-      <ProductHero />
+      {/* <ProductHero /> */}
+      <Howitworks/>
       {/* <ProductCategories /> */}
       {/* <Accordian /> */}
       {/* <ProductSmokingHero /> */}

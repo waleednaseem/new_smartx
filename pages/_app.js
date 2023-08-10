@@ -13,6 +13,8 @@ import { mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/chains';
 // import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc'
 
 import { publicProvider } from 'wagmi/providers/public';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const { chains, publicClient } = configureChains(
   [
@@ -51,6 +53,13 @@ function MyApp({ Component, pageProps }) {
     };
     use();
   }, []);
+
+  useEffect(() => {
+    AOS.init({
+         duration: 800,
+         once: false,
+       })
+ }, [])
 
   return <Provider store={store}>
     <WagmiConfig config={wagmiConfig}>
