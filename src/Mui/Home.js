@@ -9,7 +9,11 @@ import Announcement from '../components/Announcement';
 import Accordian from './Components/Accordian';
 import { fetchGet } from '../../redux/actions/auth'
 import Api from '../../src/API/API'
-import Howitworks from '../components/homepage/Howitworks';
+import Howitworks from '../components/homepage/Howitworks1';
+import Howitworks3 from '../components/homepage/Howitworks3';
+import Howitworks2 from '../components/homepage/Howitworks2';
+import Howitworks1 from '../components/homepage/Howitworks1';
+import Info from '../components/homepage/Info';
 
 
 function Home({toast}) {
@@ -23,16 +27,19 @@ function Home({toast}) {
         backgroundAttachment: "fixed",
         // backgroundSize: "cover",
       }}
-      className='bg-brickwall'
+      className='bg-brickwall overflow-hidden'
     >
       <Header12 toast={toast} />
       
       <Slider />
       <Announcement />
       {/* <ProductHero /> */}
-      <Howitworks/>
+      <Info/>
+      <Howitworks1/>
+      <Howitworks2/>
+      <Howitworks3/>
       {/* <ProductCategories /> */}
-      {/* <Accordian /> */}
+      <Accordian />
       {/* <ProductSmokingHero /> */}
       {/* <StickyFooter/> */}
       <AppFooter />

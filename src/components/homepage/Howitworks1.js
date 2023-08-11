@@ -1,11 +1,11 @@
-import {React, useEffect} from "react";
+import React from "react";
 
 
-export default function Howitworks() {
+export default function Howitworks1() {
    
   return (
-    <div date-aos="fade-up" className="w-[100%] flex py-10 bg-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
-      <div className="w-[50%] p-1 gap-1 flex justify-center items-center flex-col">
+    <div className="w-[100%] flex py-10 bg-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
+      <div data-aos="zoom-in-up" className="w-[70%] p-1 gap-1 flex justify-center items-center flex-col">
         <div className=" rounded-lg sm:min-w-[350px] p-1 flex justify-center items-center text-texting font-extrabold text-3xl underline cursor-pointer">
           How It Works
         </div>
@@ -14,9 +14,9 @@ export default function Howitworks() {
         </div>
       </div>
 
-      <div className="w-[50%] flex flex-col">
-        <div className="flex justify-center items-center ">
-        <img className="w-[60%] h-[80%]" src="images/HOW IT WORKS.png" alt="" />
+      <div data-aos="zoom-in-left" className="w-[30%] flex flex-col justify-center items-center">
+        <div className="flex justify-start sm:justify-center items-center ">
+        <img className="w-[90%] h-[130%] sm:h-[90%] " src="images/BLOCKCHAIN1.png" alt="" />
         </div>
         <div></div>
       </div>
