@@ -14,6 +14,7 @@ import Howitworks3 from '../components/homepage/Howitworks3';
 import Howitworks2 from '../components/homepage/Howitworks2';
 import Howitworks1 from '../components/homepage/Howitworks1';
 import Info from '../components/homepage/Info';
+import Wallets from '../components/homepage/Wallets';
 
 
 function Home({toast}) {
@@ -38,6 +39,7 @@ function Home({toast}) {
       <Howitworks1/>
       <Howitworks2/>
       <Howitworks3/>
+      <Wallets/>
       {/* <ProductCategories /> */}
       <Accordian />
       {/* <ProductSmokingHero /> */}
