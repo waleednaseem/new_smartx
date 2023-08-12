@@ -14,14 +14,13 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
-  bsc, bscTestnet, sepolia
+  bsc
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
-    bsc,
-    bscTestnet
+    bsc
   ],
   [publicProvider()]
 );
