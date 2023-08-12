@@ -4,7 +4,6 @@
 var getSession = async data => {
   try {
     const res=await localStorage.getItem('user');
-    console.log(res, '<=== token from localStorage');
     if(res){
       window.location.href='/'
     }

@@ -118,7 +118,7 @@ export default function Loginpage({ setState, toast }) {
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -144,14 +144,13 @@ export default function Loginpage({ setState, toast }) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               /> */}
-            <Button
+            <button
+              onClick={handleSubmit}
               type="submit"
-              fullWidth
-              sx={{ mt: 3, mb: 2 }}
-              className="bg-primary text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
+              className="bg-primary w-full p-3 mt-2 mb-2 text-texting hover:bg-primary hover:text-texting hover:font-bold rounded-lg"
             >
               Sign In
-            </Button>
+            </button>
             <Grid container>
               {/* <Grid item xs>
                   <Link href="#" variant="body2">

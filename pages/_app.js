@@ -1,50 +1,63 @@
-import react, { useEffect } from 'react'
-import '../styles/globals.css'
-import store from '../redux/Store'
-import { Provider } from 'react-redux'
+import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
-  getDefaultWallets,
   RainbowKitProvider,
-  lightTheme
+  getDefaultWallets,
+  connectorsForWallets,
 } from '@rainbow-me/rainbowkit';
+import {
+  argentWallet,
+  trustWallet,
+  ledgerWallet,
+  metaMaskWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/chains';
-// import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc'
-
+import {
+  bsc, bscTestnet, sepolia
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-const { chains, publicClient } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum
+    bsc,
+    bscTestnet
   ],
-  [
-    // jsonRpcProvider({
-    //   rpc: (chain) => ({
-    //     http: `https://cloudflare-eth.com`,
-    //   }),
-    // }),
-    publicProvider()
-  ]
+  [publicProvider()]
 );
-// https://mainnet.infura.io/v3/0b3aa2b530f741ab8521a93cb5302f93
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+
+const projectId = '324304fba50b4e52dd420b48d2404f07';
+
+const { wallets } = getDefaultWallets({
+  appName: 'RainbowKit demo',
+  projectId,
   chains,
 });
+
+const demoAppInfo = {
+  appName: 'Rainbowkit Demo',
+};
+
+const connectors = connectorsForWallets([
+  ...wallets,
+  {
+    groupName: 'Other',
+    wallets: [
+      argentWallet({ projectId, chains }),
+      trustWallet({ projectId, chains }),
+      ledgerWallet({ projectId, chains }),
+      metaMaskWallet({ projectId, chains }),
+      walletConnectWallet({ projectId, chains }),
+    ],
+  },
+]);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient
-})
-
+  publicClient,
+  webSocketPublicClient,
+});
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -54,26 +67,15 @@ function MyApp({ Component, pageProps }) {
     use();
   }, []);
 
-  useEffect(() => {
-    AOS.init({
-         duration: 800,
-         once: false,
-       })
- }, [])
-
   return <Provider store={store}>
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider theme={lightTheme({
-        accentColor: 'primary',
-        accentColorForeground: 'white',
-        borderRadius: 'medium',
-        fontStack: 'system',
-      })} chains={chains}>
+      <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
-  </Provider>
-
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
+

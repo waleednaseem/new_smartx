@@ -6,27 +6,28 @@ const slideImages = [
   {
     url: "images/1.jpg",
     caption: "Slide 1",
+  }, 
+  {
+    url: "images/new4.jpg",
+    caption: "Slide 4",
   },
   {
-    url: "images/2.jpg",
+    url: "images/new3.jpg",
+    caption: "Slide 3",
+  },
+
+  {
+    url: "images/new2.jpg",
     caption: "Slide 2",
   },
   {
-    url: "images/3.jpg",
-    caption: "Slide 3",
+    url: "images/new5.jpg",
+    caption: "Slide 5",
   },
-  // {
-  //   url: "images/p4.png",
-  //   caption: "Slide 4",
-  // },
-  // {
-  //   url: "images/p5.png",
-  //   caption: "Slide 5",
-  // },
-  // {
-  //   url: "images/smart.png",
-  //   caption: "Slide 6",
-  // },
+  {
+    url: "images/new1.jpg",
+    caption: "Slide 6",
+  }
 ];
 
 export default function SliderDB() {

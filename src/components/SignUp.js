@@ -22,7 +22,7 @@ export default function SignUp({ setState }) {
         password: password,
       },
       "/register"
-    ).then((x) => console.log(x));
+    )
   };
   return (
     <div className="bg-bgprimary rounded-lg shadow-2xl flex flex-col">

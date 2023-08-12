@@ -1,182 +1,97 @@
-import React from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useWalletClient } from "wagmi";
-import { getContract, waitForTransaction } from "wagmi/actions";
-// import myAbi from "../assets/abi/myAbi";
-const myAbi=[
-    {
-      inputs: [],
-      stateMutability: "nonpayable",
-      type: "constructor",
-    },
-    {
-      inputs: [],
-      name: "deposite",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "payable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getBalance",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getContractBalance",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "owner",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "_to",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "_amount",
-          type: "uint256",
-        },
-      ],
-      name: "transferFromOwnerToUser",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "_from",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "_amount",
-          type: "uint256",
-        },
-      ],
-      name: "transferFromUserToOwner",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "_amount",
-          type: "uint256",
-        },
-      ],
-      name: "withdraw",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "payable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "_amount",
-          type: "uint256",
-        },
-      ],
-      name: "withdrawFund",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "payable",
-      type: "function",
-    },
-  ];
+import React, { useEffect, useRef, useState } from "react";
+  import { ConnectButton } from "@rainbow-me/rainbowkit";
+  import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite } from "wagmi";
+  import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
+import { useRouter } from "next/router";
+import abi from '../src/Data/Abis.json'
+import { parseEther } from "viem";
+
+
 export default function Testing() {
-  const ContractAddress = "0x569B2514b94bc003F0394da5125f47274de0a812";
+
+
+  // console.log("Data",abi)
+
+  const ContractAddress = "0x85c3E7C1F0dD6793dC216676C4F1041DeF443CdC";
   const { data: walletClient } = useWalletClient();
+  const [balance, setBalance] = useState('null')
+  const [Usdt, setUsdt] = useState('null')
+  const [_amount, set_amount] = useState(0)
+  const { address, isConnected } = useAccount();
 
-  const contract = React.useMemo(
-    () =>
-      getContract({
-        address: ContractAddress,
-        abi: myAbi,
-        walletClient,
-      }),
+  const tokens = async () => {
+    const balances = await fetchBalance({
+      address
+    })
+    const usdt = await fetchBalance({
+      address,
+      token: '0x55d398326f99059fF775485246999027B3197955'
+    })
+    setBalance(balances.formatted)
+    setUsdt(usdt.formatted)
+  }
 
-    [walletClient]
-  );
-console.log(walletClient)
-  const deposite = async () => {
-    const transactionHash = await contract.write.transferFromUserToOwner(['0x53A3CCDDa2a98596167b5Bf9703A55e4f5116E16',100]);
-    await waitForTransaction({ hash: transactionHash });
+  const { data: data_Deposite, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement } = useContractWrite({
+
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    abi: abi,
+    walletClient,
+    functionName: 'palcement',
+    args: [
+      "0x6cE7bEB02ba0cCebaB4d50832e49b2116e31b4A8", //direct
+      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //placement
+      parseEther("10.5")
+    ]
+  
+  }
+  )
+  console.log("HI")
+
+  const { data: withdraw_data, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
+    address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",
+    abi:abi ,
+    walletClient,
+    functionName: 'upgrades',
+    args: [
+      "0x914fed022fE426Fdb82C5D4F445eb4aAC3795c8A", //direct
+      "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //placement
+      parseEther("10.5")
+    ]
+  })
+
+  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+    address: "0x60576DCD29C7b9Fc430e52CA4e96f81F0e4eAa22",
+    abi: erc20ABI,
+    walletClient,
+    functionName: 'approve',
+    args: [
+      "0x437c691137bBf6393e967eD711a3C31726b49CC8", //spender contract address
+      parseEther("10.5") //amount of tokens to approve
+    ]
+  })
+
+  const palcements = async () => {
+    await palcement();
   };
-  const withdraw = async () => {
-    const transactionHash = await contract.write.transferFromOwnerToUser(['0x53A3CCDDa2a98596167b5Bf9703A55e4f5116E16',100]);
-    await waitForTransaction({ hash: transactionHash });
+  const upgradess = async () => {
+    await upgrades();
+  };
+  const Approves = async () => {
+    await Approve();
   };
 
   return (
     <>
       <ConnectButton />
-      <button onClick={deposite}>deposite</button>
-      <button onClick={withdraw}>withdraw</button>
+      {/* <p>wallet address:{address && address}</p> */}
+      <button onClick={tokens}>press for tokens</button>
+      <div>BNB:{balance}</div>
+      <div>USDT:{Usdt}</div>
+      <div><button onClick={palcements}>placement</button></div>
+      <div><button onClick={upgradess}>upgrades</button></div>
+      <div><button onClick={Approves}>Approves</button></div>
+      {/* <button onClick={withdraw}>withdraw</button> */}
+      <input type="text" onChange={(e)=>set_amount(e.target.value)} placeholder="Amount"/>
     </>
   );
 }

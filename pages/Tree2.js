@@ -8,7 +8,6 @@ const containerStyles = {
 };
 
 export default function Tree2(props) {
-  // console.log(props,'<====')
   const [translate, setTranslate] = useState({});
   const treeContainerRef = useRef(null);
   const data=useSelector(x=>x)

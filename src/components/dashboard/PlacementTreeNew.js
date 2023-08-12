@@ -526,7 +526,6 @@ const PlacementTreeNew = () => {
       (x) => {
         //from left trend-----------------------------------------------------------------------------------
         x.data.username && setUser1(x.data.username);
-      console.log(x)
         const leftLEVEL1 = x.data.left && x.data.left;
         Api.fetchPost({UserID:leftLEVEL1,pkg:data.treeParams},`/trenduser`)
           .then((response) => {
