@@ -50,7 +50,12 @@ export default function Dashboard({ Token }) {
       )
     Api.fetchGet('/finduserpakage')
       .catch(err => console.log(err))
-  }, [])
+  }, [data])
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const decode = jwt_decode(user);
+    setdata(decode);
+  }, []);
 
   return (
     <div className="flex bg-bgprimary overflow-auto h-screen bg-contain">
