@@ -35,11 +35,7 @@ export default function profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  useEffect(() => {
-    API.fetchGet('/activate')
-      .then(x => setActivate(x.data.msg))
-      .catch(x => console.log(x))
-  }, [])
+  
 
   function openModal() {
     setIsOpen(true);
@@ -56,6 +52,12 @@ export default function profile() {
 
   const [data, setdata] = useState(false);
   const [name, setname] = useState(false);
+
+  useEffect(() => {
+    API.fetchGet('/activate')
+      .then(x => setActivate(x.data.msg))
+      .catch(x => console.log(x))
+  }, [data])
 
   useEffect(() => {
     const user = localStorage.getItem("user");

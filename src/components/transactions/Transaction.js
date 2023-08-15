@@ -4,12 +4,18 @@ import API from "../../API/API";
 
 export default function transaction() {
   const [transac, setTransaction] = useState({})
+  const [datas, setdata] = useState('')
 
   useEffect(() => {
     API.fetchGet("/findTransac")
       .then(x => setTransaction(x.data))
       .catch(err => console.log(err))
-  }, [])
+  }, [datas])
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    // const decode = jwt_decode(user);
+    setdata(user);
+  }, []);
   console.log(transac)
   return (
     <div className="flex flex-col w-[100%] h-screen">

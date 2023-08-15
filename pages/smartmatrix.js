@@ -7,12 +7,18 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export default function smartmatrix() {
   const [reff, setReff] = useState('')
+  const [datas, setdata] = useState('')
 
   useEffect(() => {
     API.fetchGet('/findrefferal')
       .then(x => setReff(x.data))
       .catch(x => console.log(x))
-  }, [])
+  }, [datas])
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    // const decode = jwt_decode(user);
+    setdata(user);
+  }, []);
 
   const dispatch = useDispatch()
   const data = useSelector(x => x)
