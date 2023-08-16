@@ -17,7 +17,7 @@ export default function Edit() {
 
   const [getfull_name, setgetfullname] = useState("");
   const [getemail, setgetemail] = useState("");
-  const [getphone, setgetphone] = useState("");
+  const [getphone, setgetphone] = useState(0);
   const [getaddress, setgetAddr] = useState("");
   const [getWalletAddr, setWalletAddr] = useState("");
 
