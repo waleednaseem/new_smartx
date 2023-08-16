@@ -95,8 +95,8 @@ export default function Dashboard({ Token }) {
       {/* <SliderDB/> */}
       {dataS.PageState == 'dashboard' && <MainDashboard Token={Token} name={name} />}
       {dataS.PageState == 'transaction' && <Transaction />}
-      {dataS.PageState == 'smartmatrix' && <div className='flex h-[90%] flex-row'>
-        {reff.length > 0 ? (
+      {dataS.PageState == 'smartmatrix' && <div className='flex w-full h-[90%] flex-row'>
+        {Token ? (
           <div className='w-full'>
             <div className='flex flex-col w-full overflow-y-auto'>
               <div className='flex flex-col h-96 w-full'>
@@ -126,7 +126,7 @@ export default function Dashboard({ Token }) {
             <div className='flex flex-col w-full overflow-y-auto'>
               <h3 className='text-primary p-5 font-bold text-lg'>Your Referral</h3>
               <div className='grid grid-cols-5 md:grid-cols-10 gap-2 p-5'>
-                {reff.map((x, i) => (
+                {reff.length > 0 && reff.map((x, i) => (
                   <p key={i} className='bg-primary p-1 text-sm text-texting rounded-3xl flex justify-center items-center'>{x.User.username}</p>
                 ))}
               </div>
