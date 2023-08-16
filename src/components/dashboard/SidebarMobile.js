@@ -6,11 +6,15 @@ import { TbBusinessplan } from "react-icons/tb";
 import { SlLogout } from "react-icons/sl";
 import { MdEmojiPeople } from "react-icons/md";
 // import {MdEmojiPeople} from "react-icons/io"
-import {GiTakeMyMoney} from "react-icons/gi"
+import { GiTakeMyMoney } from "react-icons/gi"
 import Link from "next/link";
+import { useDispatch,useSelector } from "react-redux";
+import { useEffect } from "react";
 
-export default function SidebarMobile({name}) {
+export default function SidebarMobile({ name }) {
   const [open, setOpen] = useState(true);
+  const dispatch=useDispatch()
+ 
   return (
     <div
       className={`
@@ -19,82 +23,49 @@ export default function SidebarMobile({name}) {
     >
       <div className="">
         <div className=" overflow-x-scroll scroll bottom-0 absolute bg-primary rounded-xl justify-between items-center w-[100%]">
-          
+
           <div className="flex w-[100%] justify-between items-center">
             <div className="">
-              <Link
+              <div
                 className="flex items-center text-sm p-2 mx-2 h-10 focus:bg-tertiary overflow-hidden text-texting text-ellipsis whitespace-nowrap rounded-full hover:text-secondary hover:bg-primaryhover transition duration-300 ease-in-out"
-                href="/"
+                onClick={() => dispatch({ type: 'PageState', payload: 'dashboard' })}
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="primaryhoverhover"
               >
                 <HiHome size={30} />
-              </Link>
+              </div>
             </div>
 
             <div className="">
-              <Link
+              <div
                 className="flex items-center text-sm p-2 mx-2 h-10 focus:bg-tertiary overflow-hidden text-texting text-ellipsis whitespace-nowrap rounded-full hover:text-secondary hover:bg-primaryhover transition duration-300 ease-in-out"
-                href="/transactions"
+                onClick={() => dispatch({ type: 'PageState', payload: 'transaction' })}
+                prefetch
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="primaryhoverhover"
               >
                 <GiTakeMyMoney size={30} />
-              </Link>
-            </div>
-            
-            <div className="">
-              <Link
-                className="flex items-center text-sm p-2 mx-2 h-10 focus:bg-tertiary overflow-hidden text-texting text-ellipsis whitespace-nowrap rounded-full hover:text-secondary hover:bg-primaryhover transition duration-300 ease-in-out"
-                href="/smartmatrix"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="primaryhoverhover"
-              >
-                <MdEmojiPeople size={30} />
-              </Link>
+              </div>
             </div>
 
-            
-{/* 
-            <div className="">
-              <Link
+              <div
                 className="flex items-center text-sm p-2 mx-2 h-10 focus:bg-tertiary overflow-hidden text-texting text-ellipsis whitespace-nowrap rounded-full hover:text-secondary hover:bg-primaryhover transition duration-300 ease-in-out"
-                href="/"
+                onClick={() => dispatch({ type: 'PageState', payload: 'smartmatrix' })}
+                prefetch
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="primaryhoverhover"
               >
                 <MdEmojiPeople size={30} />
-              </Link>
-            </div> */}
-            <div className="">
-              <Link
+              </div>
+              <div
                 className="flex items-center text-sm p-2 mx-2 h-10 focus:bg-tertiary overflow-hidden text-texting text-ellipsis whitespace-nowrap rounded-full hover:text-secondary hover:bg-primaryhover transition duration-300 ease-in-out"
-                href="/profile"
+                onClick={()=>dispatch({type:'PageState',payload:'profile'})}
+                prefetch
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="primaryhoverhover"
               >
                 <FaUserAlt size={30} />
-              </Link>
-            </div>
-{/* 
-            <div>
-              <div
-                className={`
-          
-         text-center mr-6  `}
-              >
-                <div
-                  onClick={() => {
-                    localStorage.removeItem("user"), window.location.assign("/");
-                  }}
-                  className="py-2  flex justify-center text-sm text-texting cursor-pointer"
-                >
-                  <SlLogout size={30} />
-                </div>
               </div>
-            </div> */}
-
-
           </div>
         </div>
       </div>

@@ -6,15 +6,22 @@ import Home from '../src/Mui/Home'
 import Dashboard  from './Dashboard'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux'
 
 
 export default function index() {
   const [Token,setToken]=useState(null)
+  const [Pressed,setPressed]=useState(null)
+  const selector = useSelector(x=>x)
+
   useEffect(()=>{
     const user = localStorage.getItem('user')
     
     setToken(user)
   },[])
+  useEffect(()=>{
+    console.log(selector)
+  },[Pressed])
   return (
     <div>
      {/* <HeaderTime/> */}

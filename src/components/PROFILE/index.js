@@ -5,19 +5,17 @@ import { GiThreeFriends, GiCardboardBox } from "react-icons/gi";
 import { MdEmojiPeople } from "react-icons/md";
 import { SlLogout } from "react-icons/sl";
 import { RiLockPasswordFill } from "react-icons/ri";
-import WalletSecure from "../src/components/dashboard/WalletSecure";
-import Sidebar from "../src/components/dashboard/Sidebar";
-import SidebarMobile from "../src/components/dashboard/SidebarMobile";
-import UserTime from "../src/components/dashboard/UserTime";
-import VerifyPlease from "../src/components/dashboard/VerifyPlease";
-import Edit from "../src/components/dashboard/Edit";
-import ResetPassword from "../src/components/dashboard/ResetPassword";
+import WalletSecure from "../../components/dashboard/WalletSecure";
+import UserTime from "../../components/dashboard/UserTime";
+import VerifyPlease from "../../components/dashboard/VerifyPlease";
+import Edit from "../../components/dashboard/Edit";
+import ResetPassword from "../../components/dashboard/ResetPassword";
 import Modal from "react-modal";
 import jwt_decode from "jwt-decode";
-import Deposit from "../src/components/dashboard/Deposit";
+import Deposit from "../../components/dashboard/Deposit";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import API from "../src/API/API";
+import API from "../../API/API";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function profile() {
@@ -97,10 +95,8 @@ export default function profile() {
   };
 
 
-
-
   return (
-    <div className={`md:flex bg-bgsecondary  `}>
+    <div className={`md:flex bg-bgsecondary w-[100%]`}>
 
 
       <div className="flex flex-row p-2 w-[100%] h-screen  overflow-hidden">

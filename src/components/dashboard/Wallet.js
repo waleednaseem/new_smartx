@@ -17,6 +17,8 @@ export default function Wallet() {
   const [balance, setBalance] = useState(0)
   const [Usdt, setUsdt] = useState(0)
   const [show, setshow] = useState(true)
+  const [Placements, setPlacements] = useState(0)
+  const [Refferals, setRefferals] = useState(0)
 
   const data = useSelector((state) => state);
   const closeModal = () => {
@@ -26,6 +28,9 @@ export default function Wallet() {
   useEffect(() => {
     API.fetchGet("/wallet")
       .then((response) => setWallet(response.data.payment))
+      .catch((error) => console.log(error));
+    API.fetchGet("/get_count")
+      .then((response) => (setPlacements(response.data.CountAll), setRefferals(response.data.Total_Reff)))
       .catch((error) => console.log(error));
   }, []);
 
@@ -90,13 +95,24 @@ export default function Wallet() {
           <div className="w-[50%] flex flex-col">
             <div className="flex justify-center sm:text-2xl text-lg font-bold text-texting hover:text-white hover:cursor-pointer ml-[38%] sm:ml-0 my-2 ">Team</div>
 
-            <div className="flex justify-center items-center my-3 ml-5">
-              <GiTeamUpgrade className="text-texting ml-[38%] sm:ml-0" size={25} />
-              <BsArrowRightShort className="text-texting " size={25} />
-              <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
-                850
-              </p>
+            <div className="flex justify-center items-center flex-col ml-5">
+              {/* <GiTeamUpgrade className="text-texting ml-[38%] sm:ml-0" size={25} /> */}
+              <div className="flex text-white">
+                Placements
+                <BsArrowRightShort className="text-texting " size={25} />
+                <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
+                  {Placements}
+                </p>
+              </div>
+              <div className="flex text-white">
+                Refferals
+                <BsArrowRightShort className="text-texting " size={25} />
+                <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
+                  {Refferals}
+                </p>
+              </div>
             </div>
+
 
           </div>
         </div>

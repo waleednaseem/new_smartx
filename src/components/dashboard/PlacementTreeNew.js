@@ -519,6 +519,7 @@ const PlacementTreeNew = () => {
 
   const data = useSelector(x => x)
   const dispatch = useDispatch()
+  const [datas, setdata] = useState('')
   
   const showRef = () => {
     Api.fetchPost({ pkg:data.treeParams }, "/ShowReffTrend")
@@ -6679,8 +6680,14 @@ const PlacementTreeNew = () => {
   }
 
   useEffect(() => {
-    showRef();
+    const user = localStorage.getItem("user");
+    // const decode = jwt_decode(user);
+    setdata(user);
   }, []);
+
+  useEffect(() => {
+    showRef();
+  }, [datas,data.treeParams]);
   useEffect(() => {
     showRef();
   }, [data.treeParams]);
@@ -6708,7 +6715,7 @@ const PlacementTreeNew = () => {
             <RiFullscreenLine size={30} />
           </button>
         </div>
-        <Tree2
+        {datas&&<Tree2
           user1={user1}
           user2={user2}
           user3={user3}
@@ -7220,7 +7227,7 @@ const PlacementTreeNew = () => {
           user509={user509}
           user510={user510}
           user511={user511}
-        />
+        />}
       </div>
     </div>
   );
