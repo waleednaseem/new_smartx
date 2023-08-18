@@ -11,6 +11,14 @@ export default function Howitworks2() {
           <img className="w-[50%] " src="images/Beige Minimalist Phone Chat Message Instagram Story.gif" alt="" />
         </div>
       </div>
+      <div className="">
+        <h1 className="font-extrabold text-2xl text-center text-primary underline cursor-pointer">
+          The Transformative Potential of Blockchain Technology
+        </h1>
+        <div className="text-center">
+          Blockchain technology has emerged as a revolutionary force across various industries, promising transformative changes that are reshaping traditional systems. At its core, blockchain is a decentralized and distributed ledger that offers a myriad of benefits.
+        </div>
+      </div>
     </div>
   );
 }

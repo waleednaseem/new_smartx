@@ -29,11 +29,11 @@ export default function Accordian() {
     },
   ]
   return (
-    <div>
-      <div id="accordionExample5">
+    <div className="flex justify-center items-center">
+      <div className="w-[50%]">
         {
           array.map((x, i) => (
-           <AccordionsStep x={x} i={i}/>
+           <AccordionsStep x={x} i={i} initiallyCollapsed={true}/>
           ))
         }
       </div>

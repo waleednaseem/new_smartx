@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 export default function AccordionsStep({ x, i }) {
+    const [collapsed, setCollapsed] = useState(true); // Initialize as collapsed
+
+    const toggleAccordion = () => {
+        setCollapsed(!collapsed);
+    };
+
     return (
-        <div key={i} className="rounded-t-lg border bg-white">
+        <div key={i} className="rounded-t-lg bg-white">
             <h2 className="mb-0" id={`heading${i}`}>
                 <button
-                    className="group relative flex w-full items-center rounded-t-[15px] bg-white py-4 px-5 text-left text-base transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] "
+                    className={`group relative flex w-full items-center rounded-t-[15px] bg-white py-4 px-5 text-left text-base transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none ${collapsed
+                            ? 'bg-white text-primary box-shadow:inset_0_-1px_0_rgba(229,231,235)'
+                            : '[&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)]'
+                        }`}
                     type="button"
                     data-te-collapse-init
                     data-te-target={`#collapse${i}`}
-                    aria-expanded="true"
+                    aria-expanded={!collapsed}
                     aria-controls={`collapse${i}`}
+                    onClick={toggleAccordion}
                 >
                     {x.heading}
-                    <span className="ml-auto -mr-1 h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none ">
+                    <span
+                        className={`ml-auto -mr-1 h-5 w-5 shrink-0 rotate-${collapsed ? '0' : '[-180deg]'
+                            } fill-${collapsed ? '#212529' : '[#336dec]'} transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none `}
+                    >
                         <svg
-                            // xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth="1.5"
@@ -33,13 +45,14 @@ export default function AccordionsStep({ x, i }) {
             </h2>
             <div
                 id={`collapse${i}`}
-                className="!visible flex items-center text-center p-5 md:ml-10"
+                className={`${collapsed ? '!visible' : ''
+                    } flex items-center text-center p-5 md:ml-10`}
                 data-te-collapse-item
-                data-te-collapse-show
+                data-te-collapse-show={!collapsed}
                 aria-labelledby={`heading${i}`}
             >
                 {x.paragraph}
             </div>
         </div>
-    )
+    );
 }
