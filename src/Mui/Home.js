@@ -23,7 +23,10 @@ function Home({ toast }) {
     Api.fetchGet('/admin')
   }, [])
 
-  const [Visitors, setVisitors] = useState(0);
+  const [startDate, setStartDate] = useState(new Date('2023-08-18T12:00:00'));
+  const [endDate, setEndDate] = useState(new Date());
+  const [userCount, setUserCount] = useState(null);
+  const [Visitors, setVisitors] = useState(userCount);
   const [Users, setUsers] = useState(0);
 
   useEffect(() => {
@@ -43,9 +46,6 @@ function Home({ toast }) {
 
   
 
-  const [startDate, setStartDate] = useState(new Date('2023-08-18T12:00:00'));
-  const [endDate, setEndDate] = useState(new Date());
-  const [userCount, setUserCount] = useState(null);
 
   function calculateUserCountBetweenDates(startDate, endDate) {
     // Calculate the time difference in milliseconds between start and end dates
@@ -98,7 +98,7 @@ function Home({ toast }) {
             {/* <button onClick={handleCalculateClick}>click</button> */}
           </div>
           <div className='text-xl font-extrabold'>
-            Visitors:{Visitors}
+            Visitors:{userCount+Visitors}
           </div>
         </div>
       </div>
