@@ -21,10 +21,10 @@ export default function Edit() {
   const [getaddress, setgetAddr] = useState("");
   const [getWalletAddr, setWalletAddr] = useState("");
 
-  const [full_name, setfullname] = useState(getfull_name);
-  const [email, setemail] = useState(getemail);
-  const [phone, setphone] = useState(getphone);
-  const [address, setAddr] = useState(getaddress);
+  const [full_name, setfullname] = useState('');
+  const [email, setemail] = useState('');
+  const [phone, setphone] = useState('');
+  const [address, setAddr] = useState('');
 
   const [state, setState] = useState("Back");
   const [verify, setVerify] = useState("ss");
@@ -153,7 +153,7 @@ export default function Edit() {
 
             <div className="flex w-[100%] gap-0.5">
               <select
-                onChange={(e) => setphone(e.target.value)}
+                // onChange={(e) => setphone(e.target.value)}
                 className="shadow-secondary shadow-md rounded-lg p-2 w-[35%] text-gray-400"
               >
                 <option value="" disabled selected>

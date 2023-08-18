@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Howitworks3() {
   return (
-    <div className="w-[100%] flex my-5 sm:my-0">
+    <div className="w-[100%] flex justify-center items-center p-5 my-5 sm:my-0">
       <div
         data-aos="zoom-in-up"
         className="w-[70%] p-1 gap-1 flex justify-center items-center flex-col sm:px-[10%]"

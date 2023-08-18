@@ -41,7 +41,7 @@ function Home({toast}) {
       <Howitworks3/>
       <Wallets/>
       {/* <ProductCategories /> */}
-      {/* <Accordian /> */}
+      <Accordian />
       {/* <ProductSmokingHero /> */}
       {/* <StickyFooter/> */}
       <AppFooter />

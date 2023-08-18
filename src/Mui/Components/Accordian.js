@@ -1,153 +1,41 @@
 import React from "react";
+import AccordionsStep from "./AccordionsStep";
 
 export default function Accordian() {
+  const array = [
+    {
+      heading: "WHO MANAGES THE PLATFORM?",
+      paragraph: "Smartxblockchain does not have a Manager. This means that the platform is fully decentralized (i.e. it has no leaders or admins)."
+    },
+    {
+      heading: " WHAT IS DECENTRALIZATION?",
+      paragraph: "It is a system in which there are no admins, there is no single server or system monitoring, project management. The creators of the platform are the same project participants like you."
+    },
+    {
+      heading: " WHAT IS Smartx?",
+      paragraph: "Smartx is one of the leading cryptocurrency, which has existed since 2017 At the same time, it is a software framework for the Defi (decentralized finance) market, since the blockchain of this crypto currency allows you not only to follow the history of transactions, but also to save any executable software products (smart contracts). A huge number of major crypto companies use this platform."
+    },
+    {
+      heading: " WHAT IS A SMART CONTRACT?",
+      paragraph: "Smart contract– the algorithm inside the blockchain cryptocurrencies. In our case that Tron is number one among the those on which it is possible to create smart contracts. The main purpose of such contracts is the automation of the relationship, the opportunity to make commitments samospalenie."
+    },
+    {
+      heading: " HOW MUCH CAN YOU EARN?",
+      paragraph: "The amount of your income depends on the number of invited people and how actively they will work."
+    },
+    {
+      heading: " WHAT DATA DO I NEED TO REGISTER?",
+      paragraph: "To register you will need only a wallet trust wallet, meta mask, binance wallet"
+    },
+  ]
   return (
     <div>
       <div id="accordionExample5">
-        <div className="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-          <h2 className="mb-0" id="headingOne5">
-            <button
-              className="group relative flex w-full items-center rounded-t-[15px] border-0 bg-white py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
-              type="button"
-              data-te-collapse-init
-              data-te-target="#collapseOne5"
-              aria-expanded="true"
-              aria-controls="collapseOne5"
-            >
-              Accordion Item #1
-              <span className="ml-auto -mr-1 h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </span>
-            </button>
-          </h2>
-          <div
-            id="collapseOne5"
-            className="!visible"
-            data-te-collapse-item
-            data-te-collapse-show
-            aria-labelledby="headingOne5"
-          >
-            <div className="py-4 px-5">
-              <strong>This is the first item's accordion body.</strong> It is
-              shown by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div className="border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-          <h2 className="mb-0" id="headingTwo5">
-            <button
-              className="group relative flex w-full items-center rounded-none border-0 bg-white py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
-              type="button"
-              data-te-collapse-init
-              data-te-collapse-collapsed
-              data-te-target="#collapseTwo5"
-              aria-expanded="false"
-              aria-controls="collapseTwo5"
-            >
-              Accordion Item #2
-              <span className="ml-auto -mr-1 h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </span>
-            </button>
-          </h2>
-          <div
-            id="collapseTwo5"
-            className="!visible hidden"
-            data-te-collapse-item
-            aria-labelledby="headingTwo5"
-          >
-            <div className="py-4 px-5">
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div className="rounded-b-lg border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-          <h2 className="mb-0" id="headingThree5">
-            <button
-              className="group relative flex w-full items-center border-0 bg-white py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)] [&[data-te-collapse-collapsed]]:rounded-b-[15px] [&[data-te-collapse-collapsed]]:transition-none"
-              type="button"
-              data-te-collapse-init
-              data-te-collapse-collapsed
-              data-te-target="#collapseThree5"
-              aria-expanded="false"
-              aria-controls="collapseThree5"
-            >
-              Accordion Item #3
-              <span className="ml-auto -mr-1 h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </span>
-            </button>
-          </h2>
-          <div
-            id="collapseThree5"
-            className="!visible hidden"
-            data-te-collapse-item
-            aria-labelledby="headingThree5"
-          >
-            <div className="py-4 px-5">
-              <strong>This is the third item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
+        {
+          array.map((x, i) => (
+           <AccordionsStep x={x} i={i}/>
+          ))
+        }
       </div>
     </div>
   );

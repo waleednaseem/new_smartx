@@ -6,11 +6,12 @@ export default function Wallets() {
       <div className="rounded-lg  p-1 flex justify-center items-center text-primary font-extrabold text-3xl underline cursor-pointer">
         Wallets
       </div>
-
+      <div data-aos="zoom-in-up" className="w-[100%] px-5  p-2 gap-1 flex justify-center items-center flex-col ">
+        <div className=" rounded-lg sm:p-5 text-primary text-justify">
+          Discover seamless blockchain wallet management! Easily connect and interact with multiple wallets like Metamask, Trust Wallet, Binance Wallet, and more, all in one place. Your gateway to efficient crypto management.
+        </div>
+      </div>
       <div className="flex w-[100%] sm:flex-row flex-col gap-5 sm:gap-0 sm:px-0 px-1">
-
-
-
         <div className="flex flex-row justify-around sm:w-[25%]">
           <div
             data-aos="zoom-in"
