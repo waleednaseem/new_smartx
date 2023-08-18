@@ -12,8 +12,8 @@ export default function AccordionsStep({ x, i }) {
             <h2 className="mb-0" id={`heading${i}`}>
                 <button
                     className={`group relative flex w-full items-center rounded-t-[15px] bg-white py-4 px-5 text-left text-base transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none ${collapsed
-                            ? 'bg-white text-primary box-shadow:inset_0_-1px_0_rgba(229,231,235)'
-                            : '[&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)]'
+                        ? 'bg-white text-primary box-shadow:inset_0_-1px_0_rgba(229,231,235)'
+                        : '[&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)]'
                         }`}
                     type="button"
                     data-te-collapse-init

@@ -41,6 +41,12 @@ function Home({ toast }) {
     };
   }, []);
 
+  
+
+  const [startDate, setStartDate] = useState(new Date('2023-08-18T12:00:00'));
+  const [endDate, setEndDate] = useState(new Date());
+  const [userCount, setUserCount] = useState(null);
+
   function calculateUserCountBetweenDates(startDate, endDate) {
     // Calculate the time difference in milliseconds between start and end dates
     const timeDiff = endDate - startDate;
@@ -53,17 +59,13 @@ function Home({ toast }) {
     return userCount;
   }
 
-  const [startDate, setStartDate] = useState(new Date('2023-08-18T00:00:00'));
-  const [endDate, setEndDate] = useState(new Date());
-  const [userCount, setUserCount] = useState(null);
-
   const handleCalculateClick = () => {
     const count = calculateUserCountBetweenDates(startDate, endDate);
     setUserCount(count);
   };
 
   useEffect(()=>{
-    handleCalculateClick
+    handleCalculateClick()
   },[])
 
   return (
@@ -93,6 +95,7 @@ function Home({ toast }) {
         <div className='w-[50%] flex justify-between items-center'>
           <div className='text-xl font-extrabold'>
             Users:{userCount}
+            {/* <button onClick={handleCalculateClick}>click</button> */}
           </div>
           <div className='text-xl font-extrabold'>
             Visitors:{Visitors}

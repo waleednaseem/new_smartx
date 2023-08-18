@@ -33,7 +33,7 @@ export default function Accordian() {
       <div className="w-[50%]">
         {
           array.map((x, i) => (
-           <AccordionsStep x={x} i={i} initiallyCollapsed={true}/>
+           <AccordionsStep x={x} i={i} />
           ))
         }
       </div>
