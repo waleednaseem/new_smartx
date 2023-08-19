@@ -20,7 +20,7 @@ import { differenceInMilliseconds, addMilliseconds, format } from 'date-fns';
 
 function Home({ toast }) {
   const [Refresh, setRefresh] = useState(0);
-  const [Visitors, setVisitors] = useState(userCount);
+  const [Visitors, setVisitors] = useState(0);
   const [Users, setUsers] = useState(0);
   useEffect(() => {
     Api.fetchGet('/admin')
@@ -28,7 +28,7 @@ function Home({ toast }) {
   }, [])
   useEffect(()=>{
     Api.fetchGet('/timers')
-    .then(x=>console.log(x))
+    .then(x=>(setVisitors(x.data.visitor),setUsers(x.data.users)))
     .catch(x=>console.log(x))
   },[])
 
@@ -62,11 +62,11 @@ function Home({ toast }) {
       <div className='flex py-10 items-center w-[100%] justify-center'>
         <div className='w-[50%] flex justify-between items-center'>
           <div className='text-xl font-extrabold'>
-            Users:{userCount}
+            Users:{Users}
             {/* <button onClick={handleCalculateClick}>click</button> */}
           </div>
           <div className='text-xl font-extrabold'>
-            Visitors:{userCount+Visitors}
+            Visitors:{Visitors}
           </div>
         </div>
       </div>
