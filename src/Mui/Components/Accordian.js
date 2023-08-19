@@ -29,7 +29,7 @@ export default function Accordian() {
     },
   ]
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center bg-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
       <div className="w-full sm:w-[50%] px-4">
         {array.map((x, i) => (
           <AccordionsStep key={i} heading={x.heading} paragraph={x.paragraph} />

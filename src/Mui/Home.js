@@ -40,7 +40,7 @@ function Home({ toast }) {
     <div
       style={{
         // backgroundImage: `url(${backgroundImage})`,
-        backgroundAttachment: "fixed",
+        // backgroundAttachment: "fixed",
         // backgroundSize: "cover",
       }}
       className='bg-brickwall overflow-hidden'
@@ -55,15 +55,11 @@ function Home({ toast }) {
       <Howitworks2 />
       <Howitworks3 />
       <Wallets />
-      {/* <ProductCategories /> */}
       <Accordian />
-      {/* <ProductSmokingHero /> */}
-      {/* <StickyFooter/> */}
       <div className='flex py-10 items-center w-[100%] justify-center'>
         <div className='w-[50%] flex justify-between items-center'>
           <div className='text-xl font-extrabold'>
             Users:{Users}
-            {/* <button onClick={handleCalculateClick}>click</button> */}
           </div>
           <div className='text-xl font-extrabold'>
             Visitors:{Visitors}

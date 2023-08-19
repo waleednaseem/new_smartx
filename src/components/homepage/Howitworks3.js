@@ -2,15 +2,15 @@ import React from "react";
 
 export default function Howitworks3() {
   return (
-    <div className="w-[100%] flex justify-center items-center flex-col-reverse md:flex-row p-5 my-5 sm:my-0">
+    <div className="w-[100%] flex justify-center items-center flex-col-reverse md:flex-row p-5 bg-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
       <div
         data-aos="zoom-in-up"
         className="w-[100%] p-1 gap-1 flex justify-center items-center flex-col sm:px-[10%]"
       >
-        <div className="flex justify-center items-center text-primary font-extrabold text-3xl underline cursor-pointer">
+        <div className="flex justify-center items-center text-texting font-extrabold text-3xl underline cursor-pointer">
           Decentralized
         </div>
-        <div className="text-primary text-center">
+        <div className="text-texting text-center">
           Welcome to our cutting-edge Networking platform, where the world of
           BlockChain Technology and Decentralized Governance converge. Join us
           to connect, collaborate, and stay ahead in the rapidly evolving
