@@ -19,54 +19,22 @@ import { differenceInMilliseconds, addMilliseconds, format } from 'date-fns';
 
 
 function Home({ toast }) {
+  const [Refresh, setRefresh] = useState(0);
+  const [Visitors, setVisitors] = useState(userCount);
+  const [Users, setUsers] = useState(0);
   useEffect(() => {
     Api.fetchGet('/admin')
+    setRefresh('1')
   }, [])
+  useEffect(()=>{
+    Api.fetchGet('/timers')
+    .then(x=>console.log(x))
+    .catch(x=>console.log(x))
+  },[])
 
   const [startDate, setStartDate] = useState(new Date('2023-08-18T12:00:00'));
   const [endDate, setEndDate] = useState(new Date());
   const [userCount, setUserCount] = useState(null);
-  const [Visitors, setVisitors] = useState(userCount);
-  const [Users, setUsers] = useState(0);
-
-  useEffect(() => {
-    // Function to generate users
-    const generateUsers = () => {
-      setVisitors(prevCount => prevCount + 100);
-    };
-
-    // Set an interval to run the generateUsers function every hour (3600000 milliseconds)
-    const intervalId = setInterval(generateUsers, 10000);
-
-    // Clean up the interval when the component unmounts
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-
-  
-
-
-  function calculateUserCountBetweenDates(startDate, endDate) {
-    // Calculate the time difference in milliseconds between start and end dates
-    const timeDiff = endDate - startDate;
-
-    // Calculate the number of hours between the dates
-    const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
-
-    // Calculate user count assuming 100 users every hour
-    const userCount = hoursDiff * 100;
-    return userCount;
-  }
-
-  const handleCalculateClick = () => {
-    const count = calculateUserCountBetweenDates(startDate, endDate);
-    setUserCount(count);
-  };
-
-  useEffect(()=>{
-    handleCalculateClick()
-  },[])
 
   return (
     <div

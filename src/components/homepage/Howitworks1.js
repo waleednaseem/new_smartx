@@ -10,12 +10,12 @@ export default function Howitworks1() {
           <img className="sm:w-[90%] h-[170%] sm:h-[90%] " src="images/BLOCKCHAIN1.png" alt="" />
         </div>
       </div>
-      <div data-aos="zoom-in-up" className="w-[70%] p-1 gap-1 flex justify-center items-center flex-col">
+      <div data-aos="zoom-in-up" className="w-[100%] p-1 gap-1 flex justify-center items-center flex-col">
         <div className="flex justify-center items-center text-texting font-extrabold text-3xl underline cursor-pointer">
           How It Works
         </div>
-        <div className="sm:p-5 text-texting text-justify">
-          Join by signing up, purchasing a package, and waiting as 2 individuals join under you – one on your left, and one on your right. Once they're in, you'll receive 50% + 50% from their investment, fully recovering yours. After, their commissions come to you (and also you will get 75% & 25% of each upgrade in direct) Upgrade to unlock deeper levels, adding 2 more below each, growing your team and ongoing commissions till level 8.
+        <div className="sm:p-5 text-texting text-center">
+          Join by signing up, purchasing a package, and waiting as 2 individuals join under you – one on your left, and one on your right. Once they're in, you'll receive 50% + 50% from their investment, fully recovering yours. After, their commissions come to you (and also you will get 75% from placement & 25% from Refferal of each upgrade in Upgrade income) Upgrade to unlock deeper levels, adding 2 more below each, growing your team and ongoing commissions till level 8.
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ export default function Howitworks2() {
 
       <div data-aos="zoom-in-right" className="w-[100%]  flex flex-col justify-center items-center">
         <div className="flex justify-start items-center ">
-          <img className="w-[50%] " src="images/Beige Minimalist Phone Chat Message Instagram Story.gif" alt="" />
+          <img className="md:w-[50%] w-full" src="images/Beige Minimalist Phone Chat Message Instagram Story.gif" alt="" />
         </div>
       </div>
       <div className="">

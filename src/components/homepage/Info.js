@@ -7,7 +7,7 @@ export default function Info() {
     <div className="w-[100%] flex flex-col my-20 md:py-8 sm:my-0 justify-center items-center">
 
       <div className="flex flex-col items-center justify-center px-8 md:px-2">
-        <p className="text-primary text-center flex justify-center items-center font-extrabold text-3xl">
+        <p className="text-primary capitalize text-center flex justify-center items-center font-extrabold text-3xl">
           the world best networking project
         </p>
         <p className="text-primary font-extrabold text-md">
@@ -16,7 +16,7 @@ export default function Info() {
       </div>
       <div data-aos="fade-right">
         <div className=" flex justify-center ">
-          <img className="sm:w-[30%] w-[40%] sm:h-[30%] " src="images/world.png" alt="" />
+          <img className="sm:w-[30%] w-[40%] sm:h-[30%] " src="images/World.png" alt="image" />
         </div>
       </div>
       <div data-aos="fade-up" className="p-1 gap-1 flex justify-center items-center flex-col">
