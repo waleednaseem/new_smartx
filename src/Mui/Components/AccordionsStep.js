@@ -8,15 +8,17 @@ const AccordionsStep = ({ heading, paragraph }) => {
   };
 
   return (
-    <div className="mb-4 border p-2  rounded-2xl">
+    <div
+    data-aos="fade-up"
+    className="mb-4 border-primary border-2 p-1  rounded-2xl">
       <h2
-        className="cursor-pointer flex justify-between text-texting"
+        className="cursor-pointer flex justify-between text-primary font-extrabold sm:font-bold"
         onClick={toggleAccordion}
       >
         {heading}
         <span className="ml-2">{expanded ? "▲" : "▼"}</span>
       </h2>
-      {expanded && <p className="text-texting">{paragraph}</p>}
+      {expanded && <p className="text-primary font-bold sm:font-normal">{paragraph}</p>}
     </div>
   );
 };

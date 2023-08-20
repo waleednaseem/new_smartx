@@ -97,20 +97,23 @@ export default function Wallet() {
 
             <div className="flex justify-center items-center flex-col ml-5">
               {/* <GiTeamUpgrade className="text-texting ml-[38%] sm:ml-0" size={25} /> */}
-              <div className="flex text-white">
-                Placements
-                <BsArrowRightShort className="text-texting " size={25} />
-                <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
-                  {Placements}
-                </p>
-              </div>
-              <div className="flex text-white">
+              
+              <div className="flex text-white text-lg sm:text-base">
                 Refferals
                 <BsArrowRightShort className="text-texting " size={25} />
                 <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
                   {Refferals}
                 </p>
               </div>
+
+              <div className="flex text-white text-lg sm:text-base">
+                Placements
+                <BsArrowRightShort className="text-texting " size={25} />
+                <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
+                  {Placements}
+                </p>
+              </div>
+              
             </div>
 
 

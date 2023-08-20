@@ -29,8 +29,11 @@ export default function Accordian() {
     },
   ]
   return (
-    <div className="flex justify-center items-center bg-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
-      <div className="w-full sm:w-[50%] px-4">
+    <div className="flex flex-col justify-center items-center bg1-gradient-to-r from-primary from-90% via-secondary via-30% to-bgprimary to-10%">
+      <div 
+      data-aos="zoom-in"
+      className="my-5 text-primary font-bold text-2xl underline">Frequently Asked Questions.</div>
+      <div className="w-full sm:w-[50%]">
         {array.map((x, i) => (
           <AccordionsStep key={i} heading={x.heading} paragraph={x.paragraph} />
         ))}

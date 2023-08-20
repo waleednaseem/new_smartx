@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function profile() {
   const [active, setActivate] = useState("")
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(8);
   const [modalIsOpen, setIsOpen] = useState(false);
   const datas = useSelector((state) => state);
   const dispatch = useDispatch()
@@ -152,7 +152,7 @@ export default function profile() {
 
             <div>
               <div
-                onClick={() => setState(0)}
+                onClick={() => setState(1)}
                 className="flex flex-col lg:flex-row justify-center items-center"
               >
                 <div className="flex flex-col justify-center items-center">
@@ -173,7 +173,7 @@ export default function profile() {
               <div className=" my-4 mx-2 border-b border-white"></div>
 
               <div
-                onClick={() => setState(1)}
+                onClick={() => setState(2)}
                 className="flex flex-col lg:flex-row justify-center items-center"
               >
                 <div className="flex flex-col justify-center items-center">
@@ -195,7 +195,7 @@ export default function profile() {
 
 
               <div
-                onClick={() => setState(4)}
+                onClick={() => setState(3)}
                 className="flex flex-col lg:flex-row justify-center items-center">
                 <div className="flex flex-col justify-center items-center">
                   <MdEmojiPeople
@@ -239,12 +239,12 @@ export default function profile() {
             <WalletSecure toast={toast} active={active} setActivate={setActivate} />
 
             <UserTime />
-            {(state == 0 && <Edit />) ||
-              (state == 1 && <ResetPassword />)
+            {(state == 1 && <Edit />) ||
+              (state == 2 && <ResetPassword />)
               ||
               // (state == 2 && <PlacementTreeNew state={state} />) ||
               // (state == 3 && <Pakages />)
-              state == 4 && (<div className="sm:mx-[30%] ">
+              state == 3 && (<div className="sm:mx-[30%] ">
                 <div className="font-bold text-xs md:xl w-[100%] md:w-auto text-primary p-4 border border-primary rounded-3xl">
                   smartxblockchain.com/?ref={datas.refferalID}
                 </div>
@@ -259,6 +259,9 @@ export default function profile() {
 
 
               </div>)
+              (state == 0 && (<div>
+                Testing
+              </div>))
             }
           </div>
         </div>

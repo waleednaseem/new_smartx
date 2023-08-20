@@ -31,11 +31,11 @@ export default function UserTime() {
         <p className="text-sm text-white rounded-t-lg p-1 bg-primary flex justify-center w-full">
           Date Registered
         </p>
-        <p className="text-sm text-secondary  font-extrabold">
+        <p className="text-sm text-secondary  font-bold">
           {state.date_register &&
             moment(state.date_register).format("MMMM Do YYYY")}
         </p>
-        <p className="text-sm text-secondary font-extrabold">
+        <p className="text-sm text-secondary font-bold">
           {state.date_register &&
             moment(state.date_register).format("h:mm:ss a")}
         </p>
@@ -44,11 +44,11 @@ export default function UserTime() {
         <p className="text-sm text-white rounded-t-lg p-1 bg-primary flex justify-center w-full">
           Last Withdrawal
         </p>
-        <p className="text-sm text-secondary  font-extrabold">
+        <p className="text-sm text-secondary  font-bold">
           {state.Last_withdraw_time &&
             moment(state.Last_withdraw_time).format("MMMM Do YYYY")}
         </p>
-        <p className="text-sm text-secondary  font-extrabold">
+        <p className="text-sm text-secondary  font-bold">
           {state.Last_withdraw_time &&
             moment(state.Last_withdraw_time).format("h:mm:ss a")}
         </p>

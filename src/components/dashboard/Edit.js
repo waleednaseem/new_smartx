@@ -17,7 +17,7 @@ export default function Edit() {
 
   const [getfull_name, setgetfullname] = useState("");
   const [getemail, setgetemail] = useState("");
-  const [getphone, setgetphone] = useState(0);
+  const [getphone, setgetphone] = useState("");
   const [getaddress, setgetAddr] = useState("");
   const [getWalletAddr, setWalletAddr] = useState("");
 
@@ -106,6 +106,7 @@ export default function Edit() {
         setgetAddr(x.data.address),
         setgetemail(x.data.email),
         setgetphone(x.data.phone),
+        console.log(x.data),
         setWalletAddr(x.data.wallet_address)
       ))
       .catch(x => console.log(x))
@@ -401,11 +402,12 @@ export default function Edit() {
                 <option value="+263">+263 ZW (Zimbabwe)</option>
               </select>
               <input
-                type={"text"}
+                type={"number"}
                 onChange={(e) => setphone(e.target.value)}
                 placeholder={"Phone"}
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[65%]"
               />
+              
             </div>
             {addressx ? <div className="flex">
               <input
@@ -415,7 +417,7 @@ export default function Edit() {
                 className="shadow-secondary shadow-md rounded-lg p-2 text-primary w-[100%] z-0"
               />
             </div> :
-              <div>please Connect Wallet First to fill this form and submit this Query!</div>
+              <div className="text-red-500 sm:text-sm text-xs">*Please Connect Wallet First to fill this form and Submit.</div>
             }
 
             {verify == "Verify" && <div className="flex">
@@ -459,7 +461,7 @@ export default function Edit() {
       )}
 
       {state == "Back" && (
-        <div className="bg-white rounded-lg px-2 h-[200px] overflow-scroll">
+        <div className="bg-white rounded-lg px-2 h-[70%] overflow-scroll">
           <div className="py-2">
             <div className="text-gray-500 text-xs sm:text-base">Name</div>
             <div className="flex gap-1 mx-2">
@@ -467,7 +469,7 @@ export default function Edit() {
               {getfull_name == null ? <div className="text-red-500 text-xs sm:text-base">
                 *Required
               </div> :
-                <div>
+                <div className="text-primary capitalize font-bold">
                   {getfull_name}
                 </div>
               }
@@ -482,7 +484,7 @@ export default function Edit() {
               {getemail == null ? <div className="text-red-500 text-xs sm:text-base">
                 *Required
               </div> :
-                <div>
+                <div className="text-primary font-bold">
                   {getemail}
                 </div>}
             </div>
@@ -496,7 +498,7 @@ export default function Edit() {
               {getphone == null ? <div className="text-red-500 text-xs sm:text-base">
                 *Required
               </div> :
-                <div>
+                <div className="text-primary capitalize font-bold">
                   {getphone}
                 </div>}
             </div>
@@ -509,7 +511,7 @@ export default function Edit() {
               {getaddress == null ? <div className="text-red-500 text-xs sm:text-base">
                 *Required
               </div> :
-                <div>
+                <div className="text-primary capitalize font-bold">
                   {getaddress}
                 </div>}
             </div>
@@ -522,7 +524,7 @@ export default function Edit() {
               {getWalletAddr == null ? <div className="text-red-500 text-xs sm:text-base">
                 *Required
               </div> :
-                <div className="w-full overflow-x-scroll">
+                <div className="w-full overflow-x-scroll text-primary font-bold">
                   {getWalletAddr}
                 </div>}
             </div>
@@ -536,7 +538,7 @@ export default function Edit() {
             <div className="flex gap-1 mx-2 justify-between">
               <div className="flex gap-1">
                 <FaHubspot className="text-primary" size={20} />
-                <div className="text-primary text-sm sm:text-base flex justify-between">
+                <div className="text-primary font-bold">
                   {datax.refferalID}
                 </div>
               </div>
