@@ -106,13 +106,13 @@ export default function Wallet() {
                 </p>
               </div>
 
-              <div className="flex text-white text-lg sm:text-base">
+              {/* <div className="flex text-white text-lg sm:text-base">
                 Placements
                 <BsArrowRightShort className="text-texting " size={25} />
                 <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
                   {Placements}
                 </p>
-              </div>
+              </div> */}
               
             </div>
 
