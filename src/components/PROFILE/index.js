@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function profile() {
   const [active, setActivate] = useState("")
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(10);
   const [modalIsOpen, setIsOpen] = useState(false);
   const datas = useSelector((state) => state);
   const dispatch = useDispatch()
