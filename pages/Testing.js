@@ -45,7 +45,7 @@ export default function Testing() {
   
   }
   )
-  console.log("HI")
+  // console.log("HI")
 
   const { data: withdraw_data, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
     address: "0x437c691137bBf6393e967eD711a3C31726b49CC8",

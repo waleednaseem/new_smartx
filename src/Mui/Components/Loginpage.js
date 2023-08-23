@@ -48,7 +48,6 @@ export default function Loginpage({ setState, toast }) {
       },
       "/login"
     ).then((x) => {
-      console.log(x)
       setSession(x.data.token)
       setRefresh(x.data.token)
     })

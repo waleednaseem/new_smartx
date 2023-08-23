@@ -19,9 +19,9 @@ export default function index() {
     
     setToken(user)
   },[])
-  useEffect(()=>{
-    console.log(selector)
-  },[Pressed])
+  // useEffect(()=>{
+  //   console.log(selector)
+  // },[Pressed])
   return (
     <div>
      {/* <HeaderTime/> */}

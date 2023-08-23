@@ -89,7 +89,7 @@ export default function Plans() {
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
     address: "0x55d398326f99059fF775485246999027B3197955",
-    abi:erc20ABI,
+    abi: erc20ABI,
     walletClient,
     functionName: 'approve',
     args: [
@@ -113,7 +113,7 @@ export default function Plans() {
 
   useEffect(() => {
     console.log('purchase now!!', value.pkg_price, data_Purchase)
-    data_Purchase?.hash&& PackagePurchase()
+    data_Purchase?.hash && PackagePurchase()
   }, [data_Purchase])
 
   useEffect(() => {
@@ -128,8 +128,8 @@ export default function Plans() {
   }, [isSuccess_approve]);
 
   const Approves = async () => {
-    await test();
     await Approve();
+    await test();
   };
   return (
     <div className="w-[100%]  cursor-pointer">
@@ -214,7 +214,10 @@ export default function Plans() {
             <div>Are You sure you want to purchase</div>
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
-              <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
+              {isLoading_Deposite || isLoading_approve ?
+                "Loading please wait" :
+                (<button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>)
+              }
               {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button> */}
             </div>
           </div>

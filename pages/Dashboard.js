@@ -25,9 +25,9 @@ export default function Dashboard({ Token }) {
   const { ref } = router.query;
 
   const LoadFunction = async () => {
-    console.log(ref, "<==ref++")
+    // console.log(ref, "<==ref++")
     if (ref == undefined) {
-      console.log(ref)
+      // console.log(ref)
     } else {
       localStorage.removeItem("user"),
         window.location.assign(`/?ref=${ref}`);

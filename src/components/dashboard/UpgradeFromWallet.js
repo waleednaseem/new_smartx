@@ -21,16 +21,13 @@ export default function UpgradeFromWallet({
   const [Refresh, setRefresh] = useState("");
   const [PLACEMENT, setPLACEMENT] = useState("");
   const [REFFERAL, setREFFERAL] = useState("");
-  console.log(PLACEMENT, "<=====PLACEMENT=====")
-  console.log(REFFERAL, "<=====REFFERAL=====")
+  
 
 
   const test = async (e) => {
     // e.preventDefault()
-    console.log(value.pkg_price, 'hit')
     await API.fetchPost({ pkg: value.pkg_price }, '/user_on_upgrade')
       .then(x => (
-        console.log(x, '<== Purchase price'),
         setPLACEMENT(x.data.placement),
         setREFFERAL(x.data.Direct_reff)
       ))
@@ -106,7 +103,6 @@ export default function UpgradeFromWallet({
   console.log({ isSuccess_approve, isSuccess_withdraw, approve_data, upgradex })
 
   useEffect(() => {
-    console.log('hitting')
     isSuccess_withdraw == true && Upgrade_pkg()
   }, [isSuccess_withdraw])
 

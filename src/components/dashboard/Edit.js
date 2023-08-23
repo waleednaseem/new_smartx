@@ -106,7 +106,7 @@ export default function Edit() {
         setgetAddr(x.data.address),
         setgetemail(x.data.email),
         setgetphone(x.data.phone),
-        console.log(x.data),
+        // console.log(x.data),
         setWalletAddr(x.data.wallet_address)
       ))
       .catch(x => console.log(x))

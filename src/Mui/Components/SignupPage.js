@@ -115,7 +115,6 @@ export default function SignupPage({ setState, toast }) {
 
         });
     };
-    console.log({ ref, router }, "<== check kro isay")
 
     return (
         <div>

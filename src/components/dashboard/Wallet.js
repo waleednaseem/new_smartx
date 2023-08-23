@@ -50,7 +50,6 @@ export default function Wallet() {
 
     // const count=Math.round()
 
-    console.log(usdt)
     setBalance(balances.formatted)
     setUsdt(usdt.formatted)
   }
