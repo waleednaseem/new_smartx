@@ -29,8 +29,8 @@ export default function Wallet() {
     API.fetchGet("/wallet")
       .then((response) => setWallet(response.data.payment))
       .catch((error) => console.log(error));
-    API.fetchGet("/get_count")
-      .then((response) => (setPlacements(response.data.CountAll), setRefferals(response.data.Total_Reff)))
+    API.fetchGet("/counting")
+      .then((response) => (setPlacements(response.data.placements), setRefferals(response.data.Total_Reff)))
       .catch((error) => console.log(error));
   }, []);
 
@@ -105,13 +105,13 @@ export default function Wallet() {
                 </p>
               </div>
 
-              {/* <div className="flex text-white text-lg sm:text-base">
+              <div className="flex text-white text-lg sm:text-base">
                 Placements
                 <BsArrowRightShort className="text-texting " size={25} />
                 <p className="text-texting font-bold sm:text-base text-lg italic mx-2 cursor-pointer mt- hover:text-white">
                   {Placements}
                 </p>
-              </div> */}
+              </div>
               
             </div>
 

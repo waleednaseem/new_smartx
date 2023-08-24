@@ -87,17 +87,6 @@ export default function Plans() {
 
   const Eth_value = value.pkg_price + "000000000000000000"
 
-  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x55d398326f99059fF775485246999027B3197955",
-    abi: erc20ABI,
-    walletClient,
-    functionName: 'approve',
-    args: [
-      "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd", //spender contract address
-      Eth_value
-    ]
-  })
-  // console.log({approve_data,isLoading_approve,isSuccess_approve})
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
 
     address: "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd",
@@ -108,29 +97,40 @@ export default function Plans() {
       REFFERAL, //direct
       PLACEMENT, //placement
       Eth_value
-    ]
+    ],
+    onSuccess:PackagePurchase
   })
 
-  useEffect(() => {
-    console.log('purchase now!!', value.pkg_price, data_Purchase)
-    data_Purchase?.hash && PackagePurchase()
-  }, [data_Purchase])
+  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+    address: "0x55d398326f99059fF775485246999027B3197955",
+    abi: erc20ABI,
+    walletClient,
+    functionName: 'approve',
+    args: [
+    "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd", //spender contract address
+    Eth_value
+    ],
+    approve_data: null,
+    onSuccess: palcement
+    })
 
-  useEffect(() => {
-    const timeoutId = setTimeout(async () => {
-      console.log('Timeout action executed!');
-      await palcement()
-    }, 2000);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [isSuccess_approve]);
+  
+  console.log({ approve_data, isLoading_approve, isSuccess_approve })
+
+
+
+  const placementCall = async () => {
+    await palcement()
+  }
+
 
   const Approves = async () => {
     await Approve();
     await test();
   };
+
+
   return (
     <div className="w-[100%]  cursor-pointer">
       <Modal

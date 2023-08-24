@@ -65,6 +65,8 @@ export default function UpgradeFromWallet({
 
   const Eth_value = `${NextPrice}`
 
+ 
+
   const { data: upgradex, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgrades } = useContractWrite({
     address: "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd",
     abi,
@@ -74,7 +76,20 @@ export default function UpgradeFromWallet({
       REFFERAL, //direct
       PLACEMENT, //placement
       parseEther(Eth_value)
-    ]
+    ],
+    onSuccess:Upgrade_pkg
+  })
+
+  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+    address: "0x55d398326f99059fF775485246999027B3197955",
+    abi:erc20ABI,
+    walletClient,
+    functionName: 'approve',
+    args: [
+      "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd", //spender contract address
+      parseEther(Eth_value) //amount of tokens to approve
+    ],
+    onSuccess:upgrades
   })
 
   const pkgInfo = () => {
@@ -89,34 +104,11 @@ export default function UpgradeFromWallet({
       .catch((err) => console.log(err));
   };
 
-  const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
-    address: "0x55d398326f99059fF775485246999027B3197955",
-    abi:erc20ABI,
-    walletClient,
-    functionName: 'approve',
-    args: [
-      "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd", //spender contract address
-      parseEther(Eth_value) //amount of tokens to approve
-    ]
-  })
+  
 
   console.log({ isSuccess_approve, isSuccess_withdraw, approve_data, upgradex })
 
-  useEffect(() => {
-    isSuccess_withdraw == true && Upgrade_pkg()
-  }, [isSuccess_withdraw])
-
-  useEffect(() => {
-    const timeoutId = setTimeout(async () => {
-      console.log('Timeout action executed!');
-      isSuccess_approve == true && await upgrades()
-    }, 5000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [isSuccess_approve]);
-
+  
   const Approves = async () => {
     await Approve();
   };
