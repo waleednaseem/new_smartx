@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import { AiFillLock } from 'react-icons/ai';
 import { parseEther } from "viem";
 import abi from '../../Data/Abis.json'
+// import { useContractEvent } from 'wagmi'
 
-import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useTransaction } from "wagmi";
+import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractEvent, useContractWrite, useTransaction, useWaitForTransaction } from "wagmi";
 import { getContract, waitForTransaction, fetchBalance, fetchToken, PrepareWriteContractConfig } from "wagmi/actions";
 
 export default function Plans() {
@@ -15,6 +16,10 @@ export default function Plans() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [NextStep, setNextStep] = useState(0);
+  const [NextStep_okay, setNextStep_okay] = useState(false);
+
+  let START = false
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -33,9 +38,11 @@ export default function Plans() {
   const [pakages, setpakages] = useState([]);
   const [msg, setmsg] = useState("");
   const [refresh, setRefresh] = useState(1);
+  const [Loading, setLoading] = useState(false);
   const [Transaction_done, setTransaction_done] = useState("");
   const [PLACEMENT, setPLACEMENT] = useState("");
   const [REFFERAL, setREFFERAL] = useState("");
+  const [BIGRefresh, setBIGRefresh] = useState(false);
 
   useEffect(() => {
     API.fetchGet('/finduserpakage')
@@ -73,6 +80,7 @@ export default function Plans() {
   };
   const PackagePurchase = () => {
     console.log("PackagePurchase", "<====")
+    setLoading(true)
     API.fetchPost({ pkg: value.pkg_price }, '/purchase_package')
       .then(x => {
         console.log("/purchase_package", "<==API==")
@@ -85,20 +93,23 @@ export default function Plans() {
   }
   const { data: walletClient } = useWalletClient();
 
+  // const Eth_value = value.pkg_price 
   const Eth_value = value.pkg_price + "000000000000000000"
 
-  const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: palcement, status } = useContractWrite({
+  const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: placement, status } = useContractWrite({
 
-    address: "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd",
+    address: "0x25eF9e24639976BE7F94c4A605a9D3095b172Ad8",
     abi,
     walletClient,
-    functionName: 'palcement',
+    functionName: 'placement',
     args: [
+      // "0x556499eda344C4E27c793f7249339f3FAf12Bc2C", //direct
+      // "0x556499eda344C4E27c793f7249339f3FAf12Bc2C", //placement
       REFFERAL, //direct
       PLACEMENT, //placement
       Eth_value
     ],
-    onSuccess:PackagePurchase
+    onSuccess: PackagePurchase
   })
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
@@ -107,29 +118,96 @@ export default function Plans() {
     walletClient,
     functionName: 'approve',
     args: [
-    "0x290d9d14B8310c27e9862247b1EE04e3423EaFDd", //spender contract address
-    Eth_value
-    ],
-    approve_data: null,
-    onSuccess: palcement
-    })
+      "0x25eF9e24639976BE7F94c4A605a9D3095b172Ad8", //spender contract address
+      Eth_value
+    ]
+  })
 
 
-  
-  console.log({ approve_data, isLoading_approve, isSuccess_approve })
+  // let start
+
+  // const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: placement, status } = useContractWrite({
+
+  //   address: "0x389DC006D55bd6bf1e5e4a4e5F0E6885d126EAfe",
+  //   abi,
+  //   walletClient,
+  //   functionName: 'placement',
+  //   args: [
+  //     "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //direct
+  //     "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //placement
+  //     Eth_value + "000000"
+  //   ],
+  //   onSuccess: PackagePurchase
+  // })
+
+
+  // const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
+  //   address: "0x3B6467B7C935272Ff304C4692E12cd157d0E641D",
+  //   abi: erc20ABI,
+  //   walletClient,
+  //   functionName: 'approve',
+  //   args: [
+  //     "0x389DC006D55bd6bf1e5e4a4e5F0E6885d126EAfe", //spender contract address
+  //     Eth_value + "000000"
+  //   ]
+  // })
+
+  const transactionHash_to_purchase = data_Purchase?.hash
+  const transactionHash = approve_data?.hash
+
+  const place_ = async () => await placement()
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: transactionHash,
+  });
+  const { isLoading: load, isSuccess: Transact_purchase } = useWaitForTransaction({
+    hash: transactionHash_to_purchase,
+  });
 
 
 
-  const placementCall = async () => {
-    await palcement()
-  }
+  useEffect(() => {
+    // place_()
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000); // 2000 milliseconds = 2 seconds
+  }, [Transact_purchase])
+
+  useEffect(() => {
+    // place_()
+    setTimeout(() => {
+      place_()
+    }, 2000); // 2000 milliseconds = 2 seconds
+  }, [isSuccess])
 
 
+
+  // console.log({ isLoading, isSuccess })
+
+
+
+  // let checkng 
+  // if(start && data_Purchase?.hash){
+  //   checkng=1
+  // }
   const Approves = async () => {
-    await Approve();
     await test();
+    await Approve()
   };
 
+  // useEffect(()=>{
+  //   PackagePurchase()
+  // },[checkng])
+
+
+  useContractEvent({
+    address: '0x389DC006D55bd6bf1e5e4a4e5F0E6885d126EAfe',
+    abi,
+    eventName: 'placementDetaill',
+    listener(log) {
+      console.log(log, '<==== this is event !!')
+    },
+  })
 
   return (
     <div className="w-[100%]  cursor-pointer">
@@ -144,12 +222,14 @@ export default function Plans() {
           value={value}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          BIGRefresh={BIGRefresh}
+          setBIGRefresh={setBIGRefresh}
         />
       </Modal>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1 my-2 px-2">
         {/* <button onClick={()=>setRefresh(refresh+1)}> data</button> */}
-        {pakages.map((x, i) => (
+        {Loading  ? <>its loading</> : pakages.map((x, i) => (
 
           x.package == true ?
             <div key={i} onClick={() => { setOnValue(i), setValue(x) }} className={`my-2`}>
@@ -216,7 +296,12 @@ export default function Plans() {
             <div className="flex w-[70%] my-2 justify-evenly items-center">
               {isLoading_Deposite || isLoading_approve ?
                 "Loading please wait" :
-                (<button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>)
+                (
+                  <div>
+                    <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
+                    {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={place_}>purchase</button> */}
+                  </div>
+                )
               }
               {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button> */}
             </div>

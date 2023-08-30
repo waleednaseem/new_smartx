@@ -13,10 +13,10 @@ import {
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { bsc } from "wagmi/chains";
+import { bsc} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import store from "../redux/Store"; //isko bi
-import { Provider } from "react-redux"; //is ko mat hatana
+import store from "../redux/Store"; 
+import { Provider } from "react-redux"; 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
