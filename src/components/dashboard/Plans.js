@@ -98,7 +98,7 @@ export default function Plans() {
 
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: placement, status } = useContractWrite({
 
-    address: "0x25eF9e24639976BE7F94c4A605a9D3095b172Ad8",
+    address: "0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5",
     abi,
     walletClient,
     functionName: 'placement',
@@ -118,7 +118,7 @@ export default function Plans() {
     walletClient,
     functionName: 'approve',
     args: [
-      "0x25eF9e24639976BE7F94c4A605a9D3095b172Ad8", //spender contract address
+      "0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5", //spender contract address
       Eth_value
     ]
   })
