@@ -230,7 +230,7 @@ export default function profile() {
             </div>
           </div>
 
-          <div className="col-span-3  flex flex-col">
+          <div className="col-span-3 overflow-y-auto mb-8  flex flex-col">
             {active != 'activated' && <VerifyPlease />}
             <WalletSecure toast={toast} active={active} setActivate={setActivate} />
 
