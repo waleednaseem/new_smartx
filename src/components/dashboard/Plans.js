@@ -297,9 +297,11 @@ export default function Plans() {
               {isLoading_Deposite || isLoading_approve ?
                 "Loading please wait" :
                 (
-                  <div>
+                  <div className="flex flex-col">
                     <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={Approves}>Purchase</button>
-                    {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={place_}>purchase</button> */}
+                  <div className="text-xs pt-2 font-bold text-black">
+                  NOTICE: use the trust wallet or meta mask browser for purchasing & upgrading packages
+                  </div>
                   </div>
                 )
               }

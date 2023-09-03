@@ -24,7 +24,7 @@ export default function UserTime() {
           Total Withdrawal
         </p>
         <p className="text-sm text-secondary mb-4 font-extrabold">
-          ${state.total_withdrawal && state.total_withdrawal}
+          ${state.total_income && state.total_income}
         </p>
       </div>
       <div className="col-span-2 flex justify-between items-center flex-col  border-white border bg-slate-50 rounded-lg min-h-[75px]">
