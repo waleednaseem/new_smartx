@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Api from "../../API/API";
 import { useDispatch } from "react-redux";
-import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
+import { useWalletClient, useAccount, usePublicClient, erc20ABI, usePrepareContractWrite, useContractWrite, useWaitForTransaction, useContractEvent } from "wagmi";
 import { useRouter } from "next/router";
 import abi from '../../Data/Abis.json'
 import { parseEther } from "viem";
@@ -24,6 +24,9 @@ export default function UpgradeFromWallet({
   // const [BIGRefresh, setBIGRefresh] = useState(false);
   const [PLACEMENT, setPLACEMENT] = useState("");
   const [REFFERAL, setREFFERAL] = useState("");
+  const [Values, setValues] = useState(0);
+  const [NextStep, setNextStep] = useState(false);
+  const [NextStep_okay, setNextStep_okay] = useState(false);
 
 
 
@@ -59,12 +62,14 @@ export default function UpgradeFromWallet({
             type: "setModalmsg",
             payload: x.data,
           }),
+          setValues(null),
           setRefresh(x.data)
           // x.data&& window.location.reload()
         )
       )
       .catch((err) => console.log(err));
   };
+
 
   const Eth_value = `${NextPrice}`
 
@@ -81,7 +86,7 @@ export default function UpgradeFromWallet({
       PLACEMENT, //placement
       parseEther(Eth_value)
     ],
-    onSuccess: Upgrade_pkg
+    onSuccess: () => setNextStep(true)
   })
 
   const { data: approve_data, isLoading: isLoading_approve, isSuccess: isSuccess_approve, write: Approve } = useContractWrite({
@@ -96,16 +101,16 @@ export default function UpgradeFromWallet({
   })
 
   // const { data: upgradex, isLoading: isLoading_withdraw, isSuccess: isSuccess_withdraw, write: upgradesx } = useContractWrite({
-  //   address: "0x389DC006D55bd6bf1e5e4a4e5F0E6885d126EAfe",
+  //   address: "0x66B0246d1d813722D052cBCBEF82d1AB2017E7aF",
   //   abi,
   //   walletClient,
   //   functionName: 'upgrades',
   //   args: [
-  //     "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //direct
-  //     "0x752D9E59909D5B2dD13c1639A0FE795580AEcdc2", //placement
-  //     25
+  //     "0x8312e6CB6356df27650d0a7eca605be827A2E358", //direct
+  //     "0x8312e6CB6356df27650d0a7eca605be827A2E358", //placement
+  //     22000000
   //   ],
-  //   onSuccess: Upgrade_pkg
+  //   onSuccess: () => setNextStep(true)
   // })
 
 
@@ -115,15 +120,13 @@ export default function UpgradeFromWallet({
   //   walletClient,
   //   functionName: 'approve',
   //   args: [
-  //     "0x389DC006D55bd6bf1e5e4a4e5F0E6885d126EAfe", //spender contract address
-  //     25 //amount of tokens to approve
+  //     "0x66B0246d1d813722D052cBCBEF82d1AB2017E7aF", //spender contract address
+  //     22000000 //amount of tokens to approve
   //   ]
   // })
 
   const transactionHash = approve_data?.hash;
   const transactionHash_upgradex = upgradex?.hash;
-  const place_ = async () => await upgradesx()
-
 
   const { isLoading, isSuccess: USDT_Transaction } = useWaitForTransaction({
     hash: transactionHash,
@@ -131,6 +134,34 @@ export default function UpgradeFromWallet({
   const { isLoading: loading, isSuccess: USDT_Transaction_upgrade } = useWaitForTransaction({
     hash: transactionHash_upgradex,
   });
+
+  const Procedure = () => {
+    setNextStep(false)
+    setNextStep_okay(false)
+    Upgrade_pkg()
+  }
+  useEffect(() => {
+    NextStep_okay == true && NextStep == true && USDT_Transaction_upgrade == true && Procedure()
+  }, [NextStep_okay && NextStep && USDT_Transaction_upgrade])
+  // console.log({NextStep_okay:true , NextStep:true , USDT_Transaction_upgrade:true})
+
+  const place_ = async () => await upgradesx()
+
+
+
+
+  useContractEvent({
+    address: '0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5',
+    abi,
+    eventName: 'upgradeDetaill',
+    listener(log) {
+      console.log(log, '<==== this is event !!')
+      if (log[0].args.amount1 > 0) {
+        // PackagePurchase()
+        setNextStep_okay(true)
+      }
+    },
+  })
 
   useEffect(() => {
     setBIGRefresh(true)
@@ -321,7 +352,7 @@ export default function UpgradeFromWallet({
         {currentLevel != 8 && PLACEMENT != null && REFFERAL != null && (
           <div className="flex justify-center items-center">
             {BIGRefresh ? "its loading" : <button
-              onClick={() => Approves()}
+              onClick={() => (Approves(), setValues(Eth_value))}
               className="bg-primary text-texting p-2 rounded-2xl transform hover:scale-110 hover:bg-opacity-50 transition ease-in duration-300 my-5 py-4"
             >
               Upgrade to Level-
