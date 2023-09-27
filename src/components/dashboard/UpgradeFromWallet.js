@@ -15,7 +15,8 @@ export default function UpgradeFromWallet({
   pkgname,
   value,
   setBIGRefresh,
-  BIGRefresh
+  BIGRefresh,
+  setLoading
 }) {
   const [NextPrice, setNextPrice] = useState("");
   const [currentLevel, setcurrentLevel] = useState("");
@@ -42,7 +43,7 @@ export default function UpgradeFromWallet({
   useEffect((e) => {
     test()
   }, [])
-
+  
   const { data: walletClient } = useWalletClient();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function UpgradeFromWallet({
   const Upgrade_pkg = () => {
     Api.fetchPost(
       {
-        pkg: value.pkg_price,
+        pkg: Values,
       },
       "/upgrade"
     )
@@ -62,6 +63,7 @@ export default function UpgradeFromWallet({
             type: "setModalmsg",
             payload: x.data,
           }),
+          
           setValues(null),
           setRefresh(x.data)
           // x.data&& window.location.reload()
@@ -138,18 +140,34 @@ export default function UpgradeFromWallet({
   const Procedure = () => {
     setNextStep(false)
     setNextStep_okay(false)
+    setLoading(false)
     Upgrade_pkg()
   }
   useEffect(() => {
-    NextStep_okay == true && NextStep == true && USDT_Transaction_upgrade == true && Procedure()
-  }, [NextStep_okay && NextStep && USDT_Transaction_upgrade])
+    NextStep == true && Procedure()
+  }, [USDT_Transaction_upgrade ])
   // console.log({NextStep_okay:true , NextStep:true , USDT_Transaction_upgrade:true})
 
   const place_ = async () => await upgradesx()
 
 
+  useEffect(() => {
+    BIGRefresh && place_()
+}, [USDT_Transaction])
 
 
+  // useContractEvent({
+  //   address: '0x66B0246d1d813722D052cBCBEF82d1AB2017E7aF',
+  //   abi,
+  //   eventName: 'upgradeDetaill',
+  //   listener(log) {
+  //     console.log(log, '<==== this is event !!')
+  //     if (log[0].args.amount1 > 0) {
+  //       // PackagePurchase()
+  //       setNextStep_okay(true)
+  //     }
+  //   },
+  // })
   useContractEvent({
     address: '0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5',
     abi,
@@ -174,12 +192,6 @@ export default function UpgradeFromWallet({
     }, 2000); // 2000 milliseconds = 2 seconds
   }, [USDT_Transaction_upgrade])
 
-  useEffect(() => {
-    // place_()
-    setTimeout(() => {
-      place_()
-    }, 2000); // 2000 milliseconds = 2 seconds
-  }, [USDT_Transaction])
 
   const pkgInfo = () => {
     Api.fetchPost({ pkg: value.pkg_price }, "/Pakage_info")
@@ -200,6 +212,7 @@ export default function UpgradeFromWallet({
 
   const Approves = async () => {
     setBIGRefresh(true)
+    setLoading(true)
     await Approve();
   };
 
@@ -308,7 +321,7 @@ export default function UpgradeFromWallet({
         </div>
         <div
           className="cursor-pointer flex items-center text-texting"
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => (!BIGRefresh&& setIsModalOpen(false))}
         >
           <AiOutlineClose size={25} />
         </div>
@@ -352,7 +365,7 @@ export default function UpgradeFromWallet({
         {currentLevel != 8 && PLACEMENT != null && REFFERAL != null && (
           <div className="flex justify-center items-center">
             {BIGRefresh ? "its loading" : <button
-              onClick={() => (Approves(), setValues(Eth_value))}
+              onClick={() => (Approves(), setValues(value.pkg_price))}
               className="bg-primary text-texting p-2 rounded-2xl transform hover:scale-110 hover:bg-opacity-50 transition ease-in duration-300 my-5 py-4"
             >
               Upgrade to Level-

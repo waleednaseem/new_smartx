@@ -16,16 +16,14 @@ export default function Plans() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [Values, setValues] = useState(0);
+  const [Values, setValues] = useState(null);
   const [NextStep, setNextStep] = useState(false);
   const [NextStep_okay, setNextStep_okay] = useState(false);
   console.log(Values)
   let START = false
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setIsModalOpen2(false);
-
+   !BIGRefresh&& setIsModalOpen(false);
   };
   // useEffect(() => {
   //   API.fetchPost({ pkg: value.pkg_price }, "/user_on_purchase")
@@ -52,11 +50,11 @@ export default function Plans() {
     setIsModalOpen(false);
   }, [msg, refresh, selectorData.setModalmsg])
   // const [_amount, set_amount] = useState(value?.pkg_price);
-
+console.log({msg:'value price',value:value.pkg_price,Values})
   const test = async (e) => {
     // e.preventDefault()
     console.log(value.pkg_price, 'hit purchase')
-    await API.fetchPost({ pkg: value?.pkg_price || 10 }, '/user_on_purchase')
+    await API.fetchPost({ pkg: value.pkg_price }, '/user_on_purchase')
       .then(x => (
         console.log(x, '<== Purchase price'),
         setPLACEMENT(x.data.placement),
@@ -82,9 +80,9 @@ export default function Plans() {
   };
   const PackagePurchase = () => {
     console.log("PackagePurchase START", "<====")
-    // setLoading(true)
     API.fetchPost({ pkg: Values }, '/purchase_package')
       .then(x => {
+        setLoading(false)
         setValues(null)
         console.log("Should purchase now!!")
         setmsg(x.data.msg), setIsModalOpen2(false), x.data.msg &&
@@ -96,8 +94,8 @@ export default function Plans() {
   }
   const { data: walletClient } = useWalletClient();
 
-  const Eth_value = value.pkg_price
-  // const Eth_value = value.pkg_price + "000000000000000000"
+  // const Eth_value = value.pkg_price
+  const Eth_value = value.pkg_price 
 
   const { data: data_Purchase, isLoading: isLoading_Deposite, isSuccess: isSuccess_deposite, write: placement, status } = useContractWrite({
 
@@ -106,11 +104,11 @@ export default function Plans() {
     walletClient,
     functionName: 'placement',
     args: [
-      // "0x556499eda344C4E27c793f7249339f3FAf12Bc2C", //direct
-      // "0x556499eda344C4E27c793f7249339f3FAf12Bc2C", //placement
+      // "0x8312e6CB6356df27650d0a7eca605be827A2E358", //direct
+      // "0x8312e6CB6356df27650d0a7eca605be827A2E358", //placement
       REFFERAL, //direct
       PLACEMENT, //placement
-      Eth_value
+      Eth_value + "000000000000000000"
     ],
     onSuccess: () => setNextStep(true)
   })
@@ -122,7 +120,7 @@ export default function Plans() {
     functionName: 'approve',
     args: [
       "0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5", //spender contract address
-      Eth_value
+      Eth_value + "000000000000000000"
     ]
   })
 
@@ -169,12 +167,23 @@ export default function Plans() {
   });
 
   const Procedure = () => {
-    setNextStep(false)
-    setNextStep_okay(false)
     PackagePurchase()
-    setLoading(false)
+    setNextStep(false)
+    
   }
 
+  // useContractEvent({
+  //   address: '0x66B0246d1d813722D052cBCBEF82d1AB2017E7aF',
+  //   abi,
+  //   eventName: 'placementDetaill',
+  //   listener(log) {
+  //     // console.log(log[0].args.amount1, '<==== this is event !!')
+  //     if (log[0].args.amount1 > 0) {
+  //       // PackagePurchase()
+  //       setNextStep_okay(true)
+  //     }
+  //   },
+  // })
   useContractEvent({
     address: '0xBfACF0f2e9eEf24c563A984b9d3d967bA51096d5',
     abi,
@@ -189,8 +198,12 @@ export default function Plans() {
   })
   // console.log(EVENT)
   useEffect(() => {
-    Procedure()
-  }, [NextStep_okay && NextStep && Transact_purchase])
+     NextStep==true&& Procedure()
+  }, [Transact_purchase])
+
+  // if(Transact_purchase ==true && NextStep_okay==true){
+  //   Procedure()
+  // }
 
 
   useEffect(() => {
@@ -200,24 +213,13 @@ export default function Plans() {
     }, 2000); // 2000 milliseconds = 2 seconds
   }, [isSuccess])
 
-
-
-  // console.log({ isLoading, isSuccess })
-
-
-
-  // let checkng 
-  // if(start && data_Purchase?.hash){
-  //   checkng=1
-  // }
   const Approves = async () => {
     await test();
-    await Approve()
+    // console.log('click Approve')
+    await Approve();
+    setLoading(true)
   };
 
-  // useEffect(()=>{
-  //   PackagePurchase()
-  // },[checkng])
 
 
 
@@ -233,6 +235,7 @@ export default function Plans() {
         <Upgrades
           onValue={onValue}
           value={value}
+          setLoading={setLoading}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           BIGRefresh={BIGRefresh}
@@ -242,7 +245,7 @@ export default function Plans() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1 my-2 px-2">
         {/* <button onClick={()=>setRefresh(refresh+1)}> data</button> */}
-        {Loading ? <>its loading</> : pakages.map((x, i) => (
+        {Loading ? <>its loading and processing Your request</> : pakages.map((x, i) => (
 
           x.package == true ?
             <div key={i} onClick={() => { setOnValue(i), setValue(x) }} className={`my-2`}>
@@ -303,24 +306,23 @@ export default function Plans() {
           onRequestClose={closeModal}
           className={" md:w-[30%] md:h-[30%] w-[80%] h-[30%] fixed md:top-[35%] md:left-[35%] top-[30%] left-[10%] rounded-2xl bg-gray-100 border-2 border-primary"}
         >
-          <div className="flex flex-col justify-center items-center w-full h-full">
+          {/* <div className="flex flex-col justify-center items-center w-full h-full">
             <div>Are You sure you want to purchase</div>
             <div>this package of {value.pkg_price} USDT</div>
             <div className="flex w-[70%] my-2 justify-evenly items-center">
-              {isLoading_Deposite || isLoading_approve ?
+              {Loading ?
                 "Loading please wait" :
                 (
                   <div className="flex flex-col">
-                    <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={() => (Approves(), setValues(Eth_value))}>Purchase</button>
+                    <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={() => (Approves(), setValues(value.pkg_price))}>Purchase</button>
                     <div className="text-xs pt-2 font-bold text-black">
                       NOTICE: use the trust wallet or meta mask browser for purchasing & upgrading packages
                     </div>
                   </div>
                 )
               }
-              {/* <button className="bg-green-800 text-white px-8 py-2 rounded-3xl" onClick={test}>test</button> */}
             </div>
-          </div>
+          </div> */}
         </Modal>
       </div >
     </div >
